@@ -136,3 +136,24 @@ html, body { overflow-x: hidden; }
 .btn-primary .arrow { display: inline-block; transition: transform .25s cubic-bezier(.34,1.56,.64,1); }
 .btn-primary:hover .arrow { transform: translateX(4px); }
 .btn-primary:active { transform: scale(.97); }
+
+/* ===== v4 Poster — controls and chapter type match the rest of the site; paper & stamps stay ===== */
+.btn { border-radius: 0; border: 2px solid var(--ink); position: relative; overflow: hidden; z-index: 0;
+  font: 700 11px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; padding: 11px 16px; transition: color .3s cubic-bezier(.2,.7,.2,1); }
+.btn::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--ink); transform: scaleX(0); transform-origin: left; transition: transform .35s cubic-bezier(.2,.7,.2,1); }
+.btn:hover { color: var(--paper); } .btn:hover::before { transform: scaleX(1); }
+.btn-quiet { border-color: var(--ink); }
+.btn-primary { background: var(--ink); color: var(--paper); }
+.btn-primary::before { background: var(--chili); }
+.back { font: 700 11px var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--ink); }
+.chapter h2 { font: 400 clamp(36px, 5vw, 64px)/.92 var(--cover); text-transform: uppercase; }
+.memory-head .place { font: 700 16px/1.2 var(--sans); }
+.memory-head .stopno { font-size: 28px; }
+.caption { font: 400 14px/1.4 var(--sans); color: var(--stone); border-left: 3px solid var(--day, var(--ink)); padding-left: 8px; }
+.index h2 { font: 400 clamp(40px, 5vw, 72px)/.9 var(--cover); text-transform: uppercase; }
+.index p.lead { font: 400 17px/1.5 var(--sans); }
+.symbols figcaption { font: 600 11px/1.3 var(--sans); letter-spacing: .08em; text-transform: uppercase; }
+.mini-actions button, .mini-actions select { border-radius: 0; border: 1.5px solid var(--ink); text-transform: uppercase; letter-spacing: .08em; font-size: 10px; font-weight: 700; }
+.side { font-family: var(--cover); letter-spacing: .04em; }
+.side em { font-family: var(--sans); font-size: 14px; letter-spacing: .1em; text-transform: uppercase; font-style: normal; }
+.drop, .empty-stop { border-radius: 0; }

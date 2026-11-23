@@ -136,3 +136,27 @@ grammar but leave animation out of scope, so motion below is our own, built on t
 
 Alternatives on `/lab.html`: **B · Night Market** (Framer × Runway: dark, white/charcoal pills, marquee,
 count-up, blur-in) and **C · Poster** (Nike × Vodafone: Anton caps, square buttons with fill-swipe, line wipe).
+
+## 12. v4 — POSTER (chosen 2026-11-24) · supersedes §3 type, §4 controls, §11 controls
+
+You picked direction **C · Poster** (Nike × Vodafone) from `/lab.html`. The paper canvas, the album's stamps and
+film strip, the Proust symbols and the day colours stay. What changes:
+
+| Token | Value |
+|---|---|
+| canvas / surface | `#fbfaf7` / `#ffffff` (dark: `#0f0f0f` / `#181818`) |
+| ink | `#111111` — text, rules, buttons |
+| chili | `#b8381a` — one accent: last headline line, primary-button hover fill, "must-eat", warnings |
+| display | **Anton**, uppercase, line-height .86–.94 — page titles, section titles, big numbers, times |
+| text | **Inter** — everything you read; emphasis = bold ink + chili-tint underline (no italics) |
+| radius | 0 everywhere (photos, cards, tabs, pins, inputs) |
+| depth | none — hard rules (3–4px ink or day colour on top of cards/stats) instead of shadows |
+
+**Controls:** square, 2px ink border, 12px Inter 700 caps +0.12em. Hover = ink fill swipes in from the left
+(350ms); primary is solid ink and its swipe is chili. Press = 1px drop. Text links: caps, 2px underline,
+chili on hover, trailing ›. One solid primary per view still applies.
+
+**Headlines:** each line is a `span.ln`; lines wipe in left→right (clip-path, 800ms, 120ms stagger). The last line
+can be `.accent` (chili). Example: HATYAI / FOOD TRIP / *THREE DAYS.*
+
+**Mobile ≤600px:** top bar keeps logo, Album and the primary only; headline line-height .94–.95.

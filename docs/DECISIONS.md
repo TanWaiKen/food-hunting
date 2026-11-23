@@ -164,3 +164,8 @@ Format: **Step / Decision** → Why → How → Result. Newest at the bottom. Do
 - **Why:** The repo `TanWaiKen/food-hunting` is public, and some photos are other people's (watermarked).
 - **How:** `public/img/` and `data/*/photos/` are gitignored. You chose this option.
 - **Result:** The code and the trip are on GitHub. Photos stay on your PC (and go to Vercel only when you deploy from this PC).
+
+### D28. Direction C · Poster chosen for the whole site
+- **Why:** You compared the three directions on `/lab.html` and picked the last one.
+- **How:** A Poster layer on top of the shared tokens: Anton caps headlines that wipe in line by line, square bordered buttons with an ink fill that swipes in, caps underlined links, rule-topped cards and stats, no rounded corners. It's applied to the home, route and album pages. Rules are in DESIGN.md §12.
+- **Result:** Checked on desktop (1360px) and phone (375px) with no sideways scroll. The mobile top bar was trimmed so the button labels no longer wrap.

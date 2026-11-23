@@ -38,7 +38,7 @@
     const nights = v.days.length;
     $("#content").innerHTML = `
       <p class="kicker reveal">${words(nights, true)}-day food route · ${esc(v.trip.city)}</p>
-      <h1 class="reveal">${esc(v.trip.title)}</h1>
+      <h1 class="wipe reveal">${(([w, ...r]) => `<span class="ln">${esc(w)}</span>${r.length ? `<span class="ln">${esc(r.join(" "))}</span>` : ""}`)(v.trip.title.split(/\s+/))}<span class="ln accent">${esc(words(nights, true))} days.</span></h1>
       <p class="lede reveal">${words(stops.length, true)} plates in ${words(nights)} days — each one timed to be open, <em>before the queue</em>, and a short walk from the last.</p>
       <p class="tznote reveal">All times in Kuala Lumpur time (${esc(v.trip.time?.label || "MYT")})${SH() ? `; ${esc(v.trip.city.split(",")[0])} runs ${Math.abs(SH())} h ${SH() > 0 ? "behind" : "ahead"}` : ""}. Each day starts at ${esc(v.trip.start.name)}.</p>
       <div class="stats">

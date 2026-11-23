@@ -50,3 +50,24 @@ body.home { display: block; }
 .footer-band { background: var(--espresso, #2b1d18); color: #e9dfd2; padding: 36px 24px; text-align: center; font-size: 13px; }
 .footer-band p { max-width: 640px; margin: 0 auto; }
 :root { --espresso: #2b1d18; }
+
+/* ===== v4 Poster ===== */
+.hero { max-width: 1120px; padding-top: clamp(40px, 7vw, 90px); }
+.hero-title { font-size: clamp(54px, 8vw, 116px); line-height: .88; margin: 16px 0 24px; }
+.hero .lede { max-width: 44ch; }
+.hero-actions .btn-primary { padding: 16px 26px; font-size: 13px; }
+.trips, .how { border-top: 3px solid var(--ink); }
+.section-head h2 { font-size: clamp(34px, 4.6vw, 60px); line-height: .92; max-width: 18ch; }
+.trip-card { border-radius: 0; border: 0; border-top: 4px solid var(--ink); box-shadow: none; }
+.trip-card .cover { border-radius: 0; }
+.trip-card .dates { border-radius: 0; font-weight: 700; }
+.trip-card h3 { font: 400 32px/.95 var(--display); text-transform: uppercase; }
+.trip-card .symbols svg { border-radius: 0; }
+.new-card { border-radius: 0; border: 2px dashed var(--ink); }
+.new-card h3 { font: 400 40px/.95 var(--display); text-transform: uppercase; font-style: normal; }
+.new-card:hover { background: var(--surface); border-style: solid; }
+.steps-row li { border-top: 3px solid var(--ink); padding-top: 14px; }
+.steps-row h3 { font: 700 18px/1.25 var(--sans); }
+.step-no { font-size: 56px; }
+.footer-band { background: var(--ink); color: var(--bg); text-transform: uppercase; letter-spacing: .1em; font-size: 11px; }
+@media (max-width: 600px) { .hero-title { line-height: .95; } }
