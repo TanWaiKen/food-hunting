@@ -186,3 +186,57 @@ textarea, input[type=password] { width: 100%; font: inherit; padding: 10px 12px;
   .time b { font-size: 15px; }
   .photos img { height: 160px; }
 }
+
+/* ================= v3 — de-AI'd controls, designed sentences, motion =================
+   Button grammar (Nike/Apple/Framer via getdesign.md): ONE filled ink pill per view,
+   everything else is an underlined text link with a chevron. No emoji in controls. */
+:root { --ease-out: cubic-bezier(.2, .7, .2, 1); --ease-spring: cubic-bezier(.34, 1.56, .64, 1); }
+body { font-variant-numeric: tabular-nums; }
+
+.btn-primary { background: var(--ink); border-color: var(--ink); color: var(--surface); padding: 10px 18px 10px 20px; letter-spacing: .01em;
+  transition: transform .18s var(--ease-out), background .2s; }
+.btn-primary:hover { transform: none; background: #000; }
+.btn-primary:active { transform: scale(.97); }                     /* Framer: press = shrink, not darken */
+.btn-primary .arrow { display: inline-block; transition: transform .25s var(--ease-spring); }
+.btn-primary:hover .arrow { transform: translateX(4px); }
+@media (prefers-color-scheme: dark) { .btn-primary { background: var(--ink); color: var(--bg); } .btn-primary:hover { background: #fff; } }
+
+.link { color: var(--ink); font-weight: 600; text-decoration: none; display: inline-flex; align-items: baseline; gap: 4px;
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; padding-bottom: 2px;
+  transition: background-size .3s var(--ease-out), color .2s; }
+.link:hover, .link:focus-visible { background-size: 100% 1px; }
+.link .chev { display: inline-block; transition: transform .25s var(--ease-spring); color: var(--muted); }
+.link:hover .chev { transform: translateX(3px); color: var(--ink); }
+.link.nav { font-weight: 500; color: var(--ink-2); margin-right: 6px; }
+.actions { gap: 18px; }
+.day-head .link { white-space: nowrap; }
+
+/* sentences with a typographic role */
+.kicker { letter-spacing: .14em; }
+.lede { font: 300 clamp(19px, 2.1vw, 22px)/1.4 var(--serif); color: var(--ink-2); margin: 0 0 10px; max-width: 34ch; }
+.lede em { font-style: italic; color: var(--ink); }
+.tznote { font-size: 13px; color: var(--muted); margin: 0 0 6px; }
+.time .local { display: block; font-size: 11px; color: var(--muted); margin-top: 2px; letter-spacing: .02em; }
+.order { display: flex; gap: 10px; align-items: baseline; }
+.order .eyebrow { font: 700 10px var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.tip { font: 300 italic 15px/1.45 var(--serif); color: var(--ink-2); }
+.badge { background: transparent; border: 1px solid var(--line); font-weight: 500; }
+.badge.warn { border-color: transparent; }
+.badge.crit { border-color: transparent; }
+.slot { letter-spacing: .14em; }
+.leg-chip { font-variant-numeric: tabular-nums; }
+.leg-chip .mode { font-weight: 700; color: var(--ink); }
+.leg-chip .caret { display: inline-block; width: 7px; height: 7px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
+  transform: translateY(-2px) rotate(45deg); margin-left: 4px; transition: transform .25s var(--ease-out); }
+.leg-chip[aria-expanded="true"] .caret { transform: translateY(1px) rotate(225deg); }
+.agent-log .tag { font: 700 10px var(--sans); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); min-width: 52px; }
+
+/* motion: staggered fade-up, card lift, slow photo push-in */
+.reveal, .card, .leg { opacity: 0; transform: translateY(14px); transition: opacity .6s var(--ease-out) var(--d, 0ms), transform .6s var(--ease-out) var(--d, 0ms); }
+.reveal.in, .card.in, .leg.in { opacity: 1; transform: none; }
+.card { transition: opacity .6s var(--ease-out) var(--d, 0ms), transform .6s var(--ease-out) var(--d, 0ms), box-shadow .3s, border-color .2s; }
+.card.in:hover { transform: translateY(-3px); box-shadow: 0 2px 4px rgb(43 29 24/.06), 0 18px 40px rgb(43 29 24/.10); }
+.photos img { transition: transform 1.2s var(--ease-out); }
+.card:hover .photos img { transform: scale(1.035); }
+.tab { transition: background .25s var(--ease-out), color .25s, border-color .25s; }
+@media (prefers-reduced-motion: reduce) { .reveal, .card, .leg { opacity: 1; transform: none; } }

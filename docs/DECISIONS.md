@@ -140,3 +140,27 @@ Format: **Step / Decision** → Why → How → Result. Newest at the bottom. Do
 - **Why:** On Vercel, `/tmp` is wiped between cold starts.
 - **How:** Not done yet; Vercel Blob is the natural fit.
 - **Result:** Locally, albums persist. Hosted albums are **not** persistent until Blob is added.
+
+---
+
+## Iteration 3 — KL time, home page, de-AI design (2026-11-24)
+
+### D24. All times shown in Kuala Lumpur time (MYT); the planner stays on local time
+- **Why:** You plan from KL and want one clock. But shops open by *their* clock, and phones abroad switch to local time.
+- **How:** [foodhunt/tz.py](../foodhunt/tz.py) works out the offset per trip (`timezone: Asia/Bangkok` → +60 min). The view, the Notion export and the CLI show MYT. `*_local` fields keep the local time, which photo matching uses.
+- **Result:** Ko Chew shows 07:36 MYT with "06:36 local" under it, and opening hours read 07:30–15:30 MYT. Tests cover the conversion and the photo-matching rule.
+
+### D25. A home page that lists every trip
+- **Why:** The site shouldn't be "only the Hatyai food trip".
+- **How:** `/` is now a home page (hero, trip cards with an evening cover photo, cover word, dates and that trip's Proust symbols, and a "Somewhere new?" card). The route page moved to `trip.html?trip=<slug>`, and `/api/trips` now returns cover, dates, stops, distance and symbols.
+- **Result:** Each new trip appears on the home page automatically.
+
+### D26. Buttons and copy redesigned
+- **Why:** You said the buttons "look very AI". The giveaways were emoji in pills (✨📷🧭), many filled buttons, and plain unstyled sentences.
+- **How:** I researched getdesign.md (Nike, Apple, Framer, Clay, Airbnb, Stripe): one filled ink pill per view, text links with chevrons, and press-to-shrink. Their DESIGN.md files leave motion out, so I designed it (DESIGN.md §11). Sentences got typographic roles (serif lede with one italic accent, spelled-out numbers).
+- **Result:** No emoji remain in any control. Three directions can be compared live on `/lab.html`; **A is applied now**, and B or C can replace it after you choose.
+
+### D27. GitHub: code public, photos private
+- **Why:** The repo `TanWaiKen/food-hunting` is public, and some photos are other people's (watermarked).
+- **How:** `public/img/` and `data/*/photos/` are gitignored. You chose this option.
+- **Result:** The code and the trip are on GitHub. Photos stay on your PC (and go to Vercel only when you deploy from this PC).

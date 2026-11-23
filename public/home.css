@@ -1,0 +1,52 @@
+/* Home — same tokens as styles.css (DESIGN.md "Field Journal"); page-level layout only. */
+body.home { display: block; }
+.home main { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+.hero { padding: clamp(56px, 10vw, 120px) 0 clamp(48px, 7vw, 88px); max-width: 860px; }
+.hero-title { font: 300 clamp(44px, 7vw, 92px)/1.02 var(--serif); letter-spacing: -.02em; margin: 14px 0 22px; }
+.hero-title em { font-style: italic; }
+.hero .lede { max-width: 46ch; font-size: clamp(19px, 2vw, 23px); }
+.hero-actions { display: flex; align-items: center; gap: 26px; margin-top: 30px; flex-wrap: wrap; }
+.hero-actions .btn-primary { padding: 14px 22px 14px 26px; font-size: 16px; }
+
+.section-head { margin-bottom: 26px; }
+.section-head h2 { font: 300 clamp(28px, 3.6vw, 42px)/1.1 var(--serif); margin: 8px 0 0; max-width: 24ch; }
+.trips, .how { padding: 40px 0 80px; border-top: 1px solid var(--line); }
+
+.trip-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 28px; }
+.trip-card { display: grid; grid-template-rows: auto 1fr; background: var(--surface); border: 1px solid var(--line); border-radius: 20px;
+  overflow: hidden; color: inherit; text-decoration: none; box-shadow: var(--shadow); }
+.trip-card .cover { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--surface-2); }
+.trip-card .cover img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s var(--ease-out); }
+.trip-card:hover .cover img { transform: scale(1.05); }
+.trip-card .word { position: absolute; left: 14px; bottom: 6px; font: 400 clamp(52px, 7vw, 76px)/.9 "Anton", Impact, sans-serif;
+  color: #fffaf2; text-transform: uppercase; letter-spacing: .01em; text-shadow: 0 2px 18px rgb(0 0 0 / .35); }
+.trip-card .dates { position: absolute; right: 12px; top: 12px; background: var(--surface); color: var(--ink); font: 600 12px var(--sans);
+  letter-spacing: .08em; text-transform: uppercase; padding: 6px 10px; border-radius: 999px; }
+.trip-card .body { padding: 18px 20px 20px; display: grid; gap: 10px; }
+.trip-card h3 { font: 400 24px/1.15 var(--serif); margin: 0; }
+.trip-card .facts { font-size: 13px; color: var(--muted); margin: 0; }
+.trip-card .symbols { display: flex; gap: 6px; }
+.trip-card .symbols svg { width: 40px; height: 40px; border-radius: 3px; box-shadow: 0 1px 2px rgb(0 0 0/.08); transition: transform .3s var(--ease-spring); }
+.trip-card:hover .symbols svg { transform: translateY(-3px); }
+.trip-card:hover .symbols svg:nth-child(2) { transition-delay: 40ms; }
+.trip-card:hover .symbols svg:nth-child(3) { transition-delay: 80ms; }
+.trip-card:hover .symbols svg:nth-child(4) { transition-delay: 120ms; }
+.trip-card:hover .symbols svg:nth-child(5) { transition-delay: 160ms; }
+.trip-card .links { display: flex; gap: 20px; margin-top: 4px; }
+
+.new-card { display: grid; place-items: center; text-align: center; padding: 40px 28px; border: 1.5px dashed var(--line); border-radius: 20px;
+  color: var(--ink-2); text-decoration: none; min-height: 320px; transition: border-color .25s, background .25s; }
+.new-card:hover { border-color: var(--ink); background: var(--surface); }
+.new-card h3 { font: 300 italic 28px/1.2 var(--serif); margin: 0 0 8px; color: var(--ink); }
+.new-card p { margin: 0 0 18px; max-width: 26ch; }
+
+.steps-row { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+.steps-row h3 { font: 400 22px/1.2 var(--serif); margin: 10px 0 6px; }
+.steps-row p { margin: 0; color: var(--ink-2); }
+.step-no { font: 400 34px/1 "Anton", Impact, sans-serif; color: var(--brand); }
+@media (max-width: 900px) { .steps-row { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .steps-row { grid-template-columns: 1fr; } .hero-actions { gap: 18px; } }
+
+.footer-band { background: var(--espresso, #2b1d18); color: #e9dfd2; padding: 36px 24px; text-align: center; font-size: 13px; }
+.footer-band p { max-width: 640px; margin: 0 auto; }
+:root { --espresso: #2b1d18; }

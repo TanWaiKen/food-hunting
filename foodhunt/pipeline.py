@@ -89,9 +89,13 @@ def build(trip: dict, slug: str, refresh: bool = False, offline: bool = False, w
         OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
         (OUTPUT_DIR / f"{slug}.notion.md").write_text(render.notion_md(trip, days, leftover, no_loc), encoding="utf-8")
         (OUTPUT_DIR / f"{slug}.html").write_text(render.export_html(view), encoding="utf-8")
+    from . import tz
+
+    sh = view["trip"]["time"]["shift_min"]
     summary = {
         "slug": slug,
-        "days": [{"date": d["date"], "stops": [f"{s['arrive']} {s['place']['name']} ({s['leg']['mode']} {s['leg']['minutes']}m)"
+        "times": f"{tz.DISPLAY_LABEL} (Kuala Lumpur)",
+        "days": [{"date": d["date"], "stops": [f"{tz.shift_hhmm(s['arrive'], sh)} {s['place']['name']} ({s['leg']['mode']} {s['leg']['minutes']}m)"
                                                for s in d["stops"]]} for d in days],
         "did_not_fit": [p["name"] for p in leftover],
         "no_coordinates": [p["name"] for p in no_loc],

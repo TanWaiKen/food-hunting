@@ -12,6 +12,7 @@ dependencies = [
     "pillow>=13.0.0",
     "python-multipart>=0.0.34",
     "pyyaml>=6.0.4",
+    "tzdata>=2026.6",
     "uvicorn>=0.54.0",
 ]
 

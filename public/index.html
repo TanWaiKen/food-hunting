@@ -3,65 +3,64 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Food Hunt</title>
-<meta name="description" content="Verified, time-aware food routes — when to go, what to order, how to walk there.">
+<title>Food Hunt — eat where the locals queue</title>
+<meta name="description" content="Verified, time-aware food routes and photo albums for food trips.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin></script>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="home.css">
 </head>
-<body>
+<body class="home">
 <header class="topbar">
   <a class="brand" href="./" aria-label="Food Hunt home">
-    <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true"><circle cx="16" cy="16" r="15" fill="var(--brand)"/><path d="M8 15h16a8 8 0 0 1-16 0Z" fill="#fff"/><path d="M12 11c0-2 2-2 2-4M17 11c0-2 2-2 2-4" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>
+    <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true"><circle cx="16" cy="16" r="15" fill="var(--ink)"/><path d="M8 15h16a8 8 0 0 1-16 0Z" fill="var(--bg)"/><path d="M12 11c0-2 2-2 2-4M17 11c0-2 2-2 2-4" stroke="var(--bg)" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>
     <span>Food Hunt</span>
   </a>
   <div class="topbar-actions">
-    <select id="tripPicker" aria-label="Choose a trip" hidden></select>
-    <a class="btn" id="albumLink" href="album.html">📷 Album</a>
-    <button class="btn btn-primary" id="openAgent" type="button">✨ Plan a trip</button>
+    <a class="link nav" href="#trips">Trips</a>
+    <a class="link nav" href="#how">How it works</a>
+    <a class="btn btn-primary" href="trip.html?plan=1">Plan a trip <span class="arrow" aria-hidden="true">→</span></a>
   </div>
 </header>
 
-<main class="layout">
-  <section class="content" id="content" aria-live="polite">
-    <div class="skeleton" id="loading">Loading trip…</div>
+<main>
+  <section class="hero">
+    <p class="kicker reveal">Food Hunt · field journal</p>
+    <h1 class="hero-title reveal">Eat where the locals&nbsp;queue&nbsp;—<br><em>at the right hour.</em></h1>
+    <p class="lede reveal">Paste the places you saved from Rednote and Google. We check each one, line them up by opening time and crowd, and walk you from one plate to the next.</p>
+    <p class="tznote reveal">Every time on this site is Kuala Lumpur time.</p>
+    <div class="hero-actions reveal">
+      <a class="btn btn-primary" href="trip.html?plan=1">Plan a trip <span class="arrow" aria-hidden="true">→</span></a>
+      <a class="link" href="#trips">See a finished trip <span class="chev" aria-hidden="true">›</span></a>
+    </div>
   </section>
-  <aside class="mapwrap" aria-label="Map">
-    <div id="map"></div>
-    <button class="btn map-toggle" id="mapToggle" type="button" aria-pressed="false">Map</button>
-  </aside>
+
+  <section class="trips" id="trips" aria-labelledby="tripsTitle">
+    <div class="section-head">
+      <p class="kicker">Trips</p>
+      <h2 id="tripsTitle">Routes you can follow tomorrow morning</h2>
+    </div>
+    <div class="trip-grid" id="tripGrid"><p class="muted">Loading trips…</p></div>
+  </section>
+
+  <section class="how" id="how" aria-labelledby="howTitle">
+    <div class="section-head">
+      <p class="kicker">How it works</p>
+      <h2 id="howTitle">Four steps, two times we ask you first</h2>
+    </div>
+    <ol class="steps-row">
+      <li class="reveal"><span class="step-no">01</span><h3>Tell us the trip</h3><p>City, days, where you sleep, the dishes you must not miss.</p></li>
+      <li class="reveal"><span class="step-no">02</span><h3>We verify</h3><p>Rednote, Google and the web — two sources per place, or it's marked unverified.</p></li>
+      <li class="reveal"><span class="step-no">03</span><h3>We time it</h3><p>Breakfast before the sell-out, supper when the market is open, the walk in between.</p></li>
+      <li class="reveal"><span class="step-no">04</span><h3>You eat, then keep it</h3><p>Upload your photos; they find their place, and each becomes a small abstract memory.</p></li>
+    </ol>
+  </section>
 </main>
 
-<div class="tooltip" id="tooltip" role="tooltip" hidden></div>
-
-<!-- Agent drawer -->
-<div class="drawer-backdrop" id="drawerBackdrop" hidden></div>
-<aside class="drawer" id="drawer" aria-hidden="true" aria-labelledby="drawerTitle">
-  <div class="drawer-head">
-    <h2 id="drawerTitle">Plan a new food trip</h2>
-    <button class="icon-btn" id="closeAgent" type="button" aria-label="Close">✕</button>
-  </div>
-  <p class="muted small" id="agentStatus">Claude researches Rednote, Google and the web, verifies each place, then plans the route.</p>
-  <form id="agentForm">
-    <label class="label" for="prompt">Where, how long, where you stay, must-eats</label>
-    <textarea id="prompt" rows="4" required placeholder="Penang, 2 days next weekend, staying near Komtar. Must try char kway teow and cendol."></textarea>
-    <div class="chips" id="examples">
-      <button type="button" class="chip">Ipoh 1 day, staying at Old Town, must try 芽菜鸡</button>
-      <button type="button" class="chip">Melaka 2 days, Jonker Street, nyonya food</button>
-      <button type="button" class="chip">Hat Yai 2 days, Lee Gardens, halal options</button>
-    </div>
-    <div id="codeRow" hidden>
-      <label class="label" for="accessCode">Access code</label>
-      <input id="accessCode" type="password" autocomplete="off">
-    </div>
-    <button class="btn btn-primary wide" id="runAgent" type="submit">Plan it</button>
-  </form>
-  <ol class="agent-log" id="agentLog" aria-live="polite"></ol>
-</aside>
-
-<script src="app.js"></script>
+<footer class="footer-band">
+  <p>Food Hunt — routes are planned in local time and shown in Kuala Lumpur time. Crowd levels are estimates unless marked live.</p>
+</footer>
+<script src="home.js"></script>
 </body>
 </html>

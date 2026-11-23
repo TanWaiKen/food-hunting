@@ -101,7 +101,21 @@ def list_trips():
     out = []
     for s in sorted(slugs):
         v = json.loads(find_trip_file(s).read_text(encoding="utf-8"))
-        out.append({"slug": s, "title": v["trip"]["title"], "city": v["trip"]["city"], "days": len(v["days"])})
+        stops = [st for d in v["days"] for st in d["stops"]]
+        album = photos.load_album(s)["photos"]
+        arrive = {f"{i}-{j}": st["arrive"] for i, d in enumerate(v["days"]) for j, st in enumerate(d["stops"])}
+        # cover: an evening photo if there is one (lights, night market), else any routed photo
+        routed = [p for p in album if p.get("stop_key") in arrive]
+        night = sorted((p for p in routed if arrive[p["stop_key"]] >= "18:00"), key=lambda p: arrive[p["stop_key"]], reverse=True)
+        cover = (night or routed or [{}])[0].get("src") \
+            or next((st["place"]["images"][0] for st in stops if st["place"].get("images")), None)
+        symbols = [abstract.render_svg(abstract.SymbolSpec.model_validate(p["symbol"]), p["palette"], 64)
+                   for p in album if p.get("symbol")][:5]
+        out.append({"slug": s, "title": v["trip"]["title"], "city": v["trip"]["city"], "days": len(v["days"]),
+                    "stops": len(stops), "first_day": v["days"][0]["date"] if v["days"] else None,
+                    "last_day": v["days"][-1]["date"] if v["days"] else None,
+                    "walk_m": sum(d.get("walk_m", 0) for d in v["days"]),
+                    "photos": len(album), "cover": cover, "symbols": symbols})
     return out
 
 

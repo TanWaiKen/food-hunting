@@ -105,3 +105,34 @@ fairy lights in the treehouse) and redraw them as a minimal abstract mark in the
 colours**. The symbol sits next to the photo (diptych) or alone as a memory index. Rules:
 facts must be visible in the photo · ≤ 8 flat shapes · colours sampled from pixels, never invented ·
 no letters or logos · one short caption (place + time), optional.
+
+## 11. v3 — Controls & Motion (after "the buttons look very AI")
+
+Research: getdesign.md's DESIGN.md files (Nike, Apple, Framer, Clay, Airbnb, Stripe) define button
+grammar but leave animation out of scope, so motion below is our own, built on their grammar.
+
+**Controls**
+- No emoji or icons inside buttons. Labels are plain verbs: "Plan a trip", "Directions", "Album".
+- **One filled ink pill per view** (`ink #1f1a17`, paper text, trailing →). Chili is no longer a button colour.
+- Every other action is a **text link**: 600 weight, underline that draws in from the left on hover, trailing ›.
+- Pressing a pill **shrinks it to 0.97** (Framer); it never changes colour.
+
+**Sentences**
+- Every sentence has a role: kicker (caps, +0.14em), title (Fraunces 300), **lede** (Fraunces 300, 19–23px,
+  one *italic* accent phrase), fact line (Inter 13px, muted), tip (Fraunces italic). Numbers under 21 are spelled out
+  in ledes ("Fifteen plates"). Times use tabular figures. Ranges use en dashes.
+- All times are **Kuala Lumpur time (MYT)**; local time sits under it in 11px muted.
+
+**Motion** (all off under `prefers-reduced-motion`)
+| Element | Motion | Timing |
+|---|---|---|
+| Text blocks, cards, legs | fade-up 14px, staggered 60–70ms | 600ms `cubic-bezier(.2,.7,.2,1)` |
+| Primary pill arrow | nudge +4px | 250ms spring `cubic-bezier(.34,1.56,.64,1)` |
+| Text link | underline grows 0→100% | 300ms ease-out |
+| Card | lift −3px + softer, wider shadow | 300ms |
+| Photo in card | slow push-in to 1.035–1.05 | 1.2–1.4s |
+| Disclosure caret | rotates 45°→225° | 250ms |
+| Symbol strip (home) | tiles rise in sequence | 40ms stagger, spring |
+
+Alternatives on `/lab.html`: **B · Night Market** (Framer × Runway: dark, white/charcoal pills, marquee,
+count-up, blur-in) and **C · Poster** (Nike × Vodafone: Anton caps, square buttons with fill-swipe, line wipe).

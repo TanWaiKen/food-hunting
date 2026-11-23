@@ -32,7 +32,7 @@
       ${p.caption || p.symbol?.caption ? `<p class="caption">${esc(p.caption || p.symbol.caption)}</p>` : ""}
       ${p.symbol ? `<p class="facts">${esc(p.symbol.visual_facts.join(" · "))}</p>` : ""}
       <div class="mini-actions">
-        <button type="button" data-act="abstract">${p.symbol ? "↻ Redo symbol" : "✨ Make symbol"}</button>
+        <button type="button" data-act="abstract">${p.symbol ? "Redo symbol" : "Make symbol"}</button>
         <select data-act="move" aria-label="Move photo to place"><option value="">Move to…</option>${opts}</select>
         ${p.by ? `<span class="facts">matched by ${esc(p.by)}${p.distance_m != null ? ` · ${p.distance_m} m` : ""}</span>` : ""}
       </div>
@@ -73,7 +73,7 @@
     const night = ps.find(p => { const s = sk[p.stop_key]; return s && s.arrive >= "18:00"; }) || ps[0];
     document.title = `${v.trip.title} · Album`;
     $("#barTitle").textContent = `${v.trip.title} · ${ps.length} photos`;
-    $("#backLink").href = `./?trip=${encodeURIComponent(slug)}`;
+    $("#backLink").href = `trip.html?trip=${encodeURIComponent(slug)}`;
 
     const cover = `<section class="cover"><div class="book">
         <h1 class="spine-word">${esc(word)}</h1>
@@ -133,7 +133,7 @@
         if (!r.ok) {
           const msg = (await r.json().catch(() => ({}))).detail || r.status;
           toast(r.status === 502 && /api_key|auth/i.test(msg) ? "Needs ANTHROPIC_API_KEY on the server — or run the skill in Claude Code." : `Couldn't make a symbol: ${msg}`);
-          e.target.disabled = false; e.target.textContent = "✨ Make symbol"; return;
+          e.target.disabled = false; e.target.textContent = "Make symbol"; return;
         }
         await load(); toast("Symbol made.");
       });

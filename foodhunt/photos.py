@@ -92,7 +92,8 @@ def stop_index(view: dict) -> list[dict]:
         for j, s in enumerate(d["stops"]):
             p = s["place"]
             out.append({"key": f"{i}-{j}", "name": p["display"], "place": p["name"], "lat": p["lat"], "lng": p["lng"],
-                        "date": d["date"], "arrive": s["arrive"], "leave": s["leave"]})
+                        # EXIF time is the phone's local clock abroad → match on local, not MYT
+                        "date": d["date"], "arrive": s.get("arrive_local", s["arrive"]), "leave": s.get("leave_local", s["leave"])})
     for k, p in enumerate(view.get("no_location", []) + view.get("leftover", [])):
         out.append({"key": f"x-{k}", "name": p["display"], "place": p["name"], "lat": p.get("lat"), "lng": p.get("lng")})
     return out

@@ -13,10 +13,12 @@ route**, then turns your trip photos into an **album** with "Proust symbols".
 uv sync
 uv run foodhunt plan trips/hatyai.yaml          # gather + plan → data/hatyai/view.json, output/*.html|.notion.md
 uv run uvicorn app:app --port 8000              # website: route + album + agent + remote MCP
-uv run pytest -q                                # 25 tests, offline, no API key needed
+uv run pytest -q                                # 27 tests, offline, no API key needed
 ```
 
-Open <http://localhost:8000> (route) and <http://localhost:8000/album.html?trip=hatyai> (album).
+Pages: <http://localhost:8000> (all trips) · `/trip.html?trip=hatyai` (route) · `/album.html?trip=hatyai` (album) ·
+`/lab.html` (design lab: three directions to compare). All times are shown in **Kuala Lumpur time (MYT)**;
+set `timezone:` in the trip file (e.g. `Asia/Bangkok`) and local time appears underneath.
 
 ## How it fits together
 

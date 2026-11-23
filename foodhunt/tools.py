@@ -55,6 +55,7 @@ class StartPoint(BaseModel):
 class TripSpec(BaseModel):
     trip: str = Field(description="Title, e.g. 'Penang Food Trip'")
     city: str = Field(description="'City, State/Province, Country' — used for map lookups")
+    timezone: str = Field("Asia/Kuala_Lumpur", description="IANA zone of the destination, e.g. 'Asia/Bangkok'; times are shown in MYT")
     center: tuple[float, float] = Field(description="[lat, lng] of the town centre")
     start: StartPoint = Field(description="Hotel / where each day starts")
     days: list[DaySpec]

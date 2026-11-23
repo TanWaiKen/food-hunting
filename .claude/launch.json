@@ -4,7 +4,7 @@
     {
       "name": "foodhunt-web",
       "runtimeExecutable": "uv",
-      "runtimeArgs": ["run", "uvicorn", "app:app", "--port", "8000"],
+      "runtimeArgs": ["run", "--no-sync", "uvicorn", "app:app", "--port", "8000"],
       "port": 8000
     }
   ]

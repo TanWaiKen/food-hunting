@@ -24,10 +24,17 @@ def _img(p: dict) -> list[str]:
 # ---------------- Notion ----------------
 
 def notion_md(trip: dict, days: list[dict], leftover: list[dict], no_loc: list[dict] = ()) -> str:
+    from . import tz
+
+    sh = tz.shift_minutes(trip.get("timezone"), days[0]["date"] if days else None)
+    K = lambda t: tz.shift_text(t, sh)  # noqa: E731 — local → MYT
+    lbl = tz.DISPLAY_LABEL
     L: list[str] = []
     L.append(f"<callout icon=\"🧭\" color=\"blue_bg\">\n<b>How to use:</b> follow Day 1 top to bottom. Each stop shows when to arrive, "
              f"why that time, and how to walk there. Tap <b>Open full-day route</b> for Google Maps navigation.\\\n"
-             f"Start: <b>{trip['start']['name']}</b> · Crowd: ░ quiet ▒ medium ▓ busy · closed, each mark = 1 h from 06:00 to 23:00\n</callout>")
+             f"Start: <b>{trip['start']['name']}</b> · All times are Kuala Lumpur time ({lbl})"
+             + (f", {abs(sh) // 60} h {'ahead of' if sh > 0 else 'behind'} local time" if sh else "")
+             + " · Crowd: ░ quiet ▒ medium ▓ busy · closed\n</callout>")
     L.append("<p />")
     for i, d in enumerate(days, 1):
         if not d["stops"]:
@@ -49,20 +56,20 @@ def notion_md(trip: dict, days: list[dict], leftover: list[dict], no_loc: list[d
             meta = []
             if p.get("rating"):
                 meta.append(f"⭐ {p['rating']}" + (f" ({p['reviews']:,} reviews)" if p.get("reviews") else ""))
-            meta.append(f"🕒 Arrive <b>{s['arrive']}</b> → leave {s['leave']}")
-            meta.append(f"Open today: {s['hours_today']}")
+            meta.append(f"🕒 Arrive <b>{K(s['arrive'])} {lbl}</b> → leave {K(s['leave'])}" + (f" (local {s['arrive']})" if sh else ""))
+            meta.append(f"Open today: {K(s['hours_today'])}")
             L.append(" · ".join(meta))
             L.append("")
             crowd_src = "estimated" if c["source"] == "estimate" else "live data"
-            why = [f"Quietest {c['best']} · Busiest {c['peak']} ({crowd_src})"]
+            why = [f"Quietest {K(c['best'] or '')} · Busiest {K(c['peak'] or '')} ({crowd_src})"]
             if s["wait_min"] > 10 and s.get("wait_reason") == "opening":
-                why.append(f"opens at {s['arrive']} — arrive on the dot")
+                why.append(f"opens at {K(s['arrive'])} — arrive on the dot")
             elif s["wait_min"] > 30:
                 why.append(f"{s['wait_min'] // 60} h {s['wait_min'] % 60} min free time before this — rest / shop")
             if p.get("sells_out"):
                 why.append("sells out early")
             L.append(f"<callout icon=\"⏰\" color=\"{'red_bg' if s['crowd_now'] >= 70 else 'yellow_bg' if s['crowd_now'] >= 35 else 'green_bg'}\">\n"
-                     f"Crowd at {s['arrive']}: <b>{_level(s['crowd_now'])}</b> `{_bar(c['by_hour'], c.get('best_hour'), c.get('peak_hour'))}`\\\n"
+                     f"Crowd at {K(s['arrive'])}: <b>{_level(s['crowd_now'])}</b> `{_bar(c['by_hour'], c.get('best_hour'), c.get('peak_hour'))}`\\\n"
                      f"{' · '.join(why)}\n</callout>")
             if p.get("order"):
                 L.append(f"🍴 <b>Order:</b> {p['order']}")
@@ -130,19 +137,25 @@ def _place_view(p: dict) -> dict:
 
 def view_model(trip: dict, days: list[dict], leftover: list[dict], no_loc: list[dict] = (), *, crowd_source: str = "estimate",
                place_source: str = "openstreetmap") -> dict:
-    import datetime as dt
+    from . import tz
 
+    sh = tz.shift_minutes(trip.get("timezone"), days[0]["date"] if days else None)
+    K = lambda t: tz.shift_text(t, sh) if t else t  # noqa: E731 — local → MYT
     out_days = []
     for d in days:
         stops = []
         for s in d["stops"]:
             leg = s["leg"]
+            c = s["crowd"]
             stops.append({
-                "slot": s.get("slot"), "arrive": s["arrive"], "leave": s["leave"],
+                # what people read is MYT; *_local is the destination clock (photo matching, signage)
+                "slot": s.get("slot"), "arrive": K(s["arrive"]), "leave": K(s["leave"]),
+                "arrive_local": s["arrive"], "leave_local": s["leave"],
                 "wait_min": s["wait_min"], "wait_reason": s.get("wait_reason"),
-                "hours_today": s["hours_today"], "hours_known": s["hours_known"],
+                "hours_today": K(s["hours_today"]), "hours_local": s["hours_today"], "hours_known": s["hours_known"],
                 "crowd_now": s["crowd_now"],
-                "crowd": {k: s["crowd"].get(k) for k in ("best", "peak", "best_hour", "peak_hour", "by_hour", "source")},
+                "crowd": {"best": K(c.get("best")), "peak": K(c.get("peak")), "best_hour": c.get("best_hour"),
+                          "peak_hour": c.get("peak_hour"), "by_hour": c.get("by_hour"), "source": c.get("source")},
                 "leg": {"mode": leg["mode"], "meters": leg.get("meters"), "minutes": leg["minutes"],
                         "steps": leg.get("steps", []), "source": leg.get("source"),
                         "geometry": [[round(y, 6), round(x, 6)] for x, y in (leg.get("geometry") or [])]},  # [lat,lng]
@@ -152,7 +165,9 @@ def view_model(trip: dict, days: list[dict], leftover: list[dict], no_loc: list[
                          "walk_m": sum(s["leg"]["meters"] or 0 for s in stops if s["leg"]["mode"] == "walking")})
     return {
         "trip": {"title": trip["trip"], "city": trip["city"], "start": trip["start"],
-                 "generated_at": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
+                 "generated_at": tz.now_display(),
+                 "time": {"display": tz.DISPLAY_TZ, "label": tz.DISPLAY_LABEL, "local": trip.get("timezone") or tz.DISPLAY_TZ,
+                          "shift_min": sh},
                  "sources": {"crowd": crowd_source, "places": place_source}},
         "days": out_days,
         "leftover": [_place_view(p) for p in leftover],
@@ -166,7 +181,7 @@ def export_html(view: dict, img_base: str = "../public/") -> str:
 
     from .config import PUBLIC_DIR
 
-    page = (PUBLIC_DIR / "index.html").read_text(encoding="utf-8")
+    page = (PUBLIC_DIR / "trip.html").read_text(encoding="utf-8")
     css = (PUBLIC_DIR / "styles.css").read_text(encoding="utf-8")
     js = (PUBLIC_DIR / "app.js").read_text(encoding="utf-8")
     data = json.dumps(view, ensure_ascii=False).replace("</", "<\\u002f")  # never close the <script> early

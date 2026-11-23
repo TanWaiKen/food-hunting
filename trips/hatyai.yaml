@@ -2,6 +2,7 @@
 # confidence: high = Google/official, medium = 2+ web listings agree, low = single/unclear source
 trip: Hatyai Food Trip
 city: Hat Yai, Songkhla, Thailand
+timezone: Asia/Bangkok                # Thailand is UTC+7 — the site shows everything in MYT (UTC+8)
 center: [7.0074, 100.4690]            # Hat Yai town centre (Kim Yong area)
 start: {name: Lee Gardens Plaza Hotel, lat: 7.0058506, lng: 100.4716957}
 # ASSUMPTION: Fri–Sun so Lee Garden Night Market (Fri–Sun only) is included. Change dates freely.

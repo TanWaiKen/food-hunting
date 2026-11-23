@@ -131,3 +131,8 @@ html, body { overflow-x: hidden; }
 .memory:hover .mini-actions, .memory:focus-within .mini-actions, .tray .mini-actions { opacity: 1; }
 @media (hover: none) { .memory .mini-actions { opacity: 1; } }
 .mini-actions select { max-width: 150px; }
+/* v3 controls: ink primary, arrow nudge, press shrink (matches the route page) */
+.btn-primary { background: var(--ink); border-color: var(--ink); color: var(--paper); transition: transform .18s cubic-bezier(.2,.7,.2,1); }
+.btn-primary .arrow { display: inline-block; transition: transform .25s cubic-bezier(.34,1.56,.64,1); }
+.btn-primary:hover .arrow { transform: translateX(4px); }
+.btn-primary:active { transform: scale(.97); }
