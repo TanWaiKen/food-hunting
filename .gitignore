@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+.env
+data/*/places.json
+output/
+.pytest_cache/
+# photos are not ours to publish (Notion/Rednote copies) — kept local only
+public/img/
+data/*/photos/
+__pycache__/
+*.pyc
+.claude/settings.local.json

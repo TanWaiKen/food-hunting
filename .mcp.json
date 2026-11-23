@@ -1,0 +1,23 @@
+{
+  "mcpServers": {
+    "foodhunt": {
+      "type": "stdio",
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "${CLAUDE_PROJECT_DIR:-.}",
+        "foodhunt-mcp"
+      ],
+      "env": {
+        "GOOGLE_MAPS_API_KEY": "${GOOGLE_MAPS_API_KEY:-}",
+        "BESTTIME_API_KEY_PRIVATE": "${BESTTIME_API_KEY_PRIVATE:-}",
+        "PYTHONIOENCODING": "utf-8"
+      }
+    },
+    "xiaohongshu": {
+      "type": "http",
+      "url": "http://localhost:18060/mcp"
+    }
+  }
+}

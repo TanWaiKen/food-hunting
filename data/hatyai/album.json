@@ -1,0 +1,1360 @@
+{
+ "photos": [
+  {
+   "id": "de4fe6e7a8c5",
+   "src": "api/trips/hatyai/photos/de4fe6e7a8c5.jpg",
+   "file": "5864e2dc-1884-4702-b07b-d4ead69f3557.jpg",
+   "w": 675,
+   "h": 900,
+   "stop_key": "x-0",
+   "by": "manual",
+   "palette": [
+    "#c19c52",
+    "#cbcacc",
+    "#7e684a",
+    "#4b382b",
+    "#d7d7dd"
+   ],
+   "symbol": {
+    "visual_facts": [
+     "yellow menu board",
+     "rows of dishes"
+    ],
+    "motif": "the yellow menu",
+    "shapes": [
+     {
+      "type": "rect",
+      "x": 50.0,
+      "y": 50.0,
+      "w": 54.0,
+      "h": 72.0,
+      "rotate": 0,
+      "color": 0,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "line",
+      "x": 50.0,
+      "y": 30.0,
+      "w": 36.0,
+      "h": 30,
+      "rotate": 0,
+      "color": 3,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "line",
+      "x": 50.0,
+      "y": 42.0,
+      "w": 36.0,
+      "h": 30,
+      "rotate": 0,
+      "color": 3,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "line",
+      "x": 50.0,
+      "y": 54.0,
+      "w": 36.0,
+      "h": 30,
+      "rotate": 0,
+      "color": 3,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "line",
+      "x": 50.0,
+      "y": 66.0,
+      "w": 24.0,
+      "h": 30,
+      "rotate": 0,
+      "color": 3,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     }
+    ],
+    "background": 4,
+    "caption": "the yellow menu"
+   },
+   "caption": "the yellow menu"
+  },
+  {
+   "id": "1970b30dfe21",
+   "src": "api/trips/hatyai/photos/1970b30dfe21.jpg",
+   "file": "ac8e4f96-4b0a-4945-b514-5cb03da12b51.jpg",
+   "w": 382,
+   "h": 510,
+   "stop_key": "x-0",
+   "by": "manual",
+   "palette": [
+    "#63665f",
+    "#1b2221",
+    "#c5c385",
+    "#919083",
+    "#e5e9ee"
+   ],
+   "symbol": {
+    "visual_facts": [
+     "bright yellow shop sign",
+     "grey shophouse"
+    ],
+    "motif": "yellow sign",
+    "shapes": [
+     {
+      "type": "rect",
+      "x": 40.0,
+      "y": 60.0,
+      "w": 46.0,
+      "h": 70.0,
+      "rotate": 0,
+      "color": 0,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "rect",
+      "x": 62.0,
+      "y": 34.0,
+      "w": 40.0,
+      "h": 18.0,
+      "rotate": -4.0,
+      "color": 2,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "line",
+      "x": 62.0,
+      "y": 34.0,
+      "w": 22.0,
+      "h": 30,
+      "rotate": -4.0,
+      "color": 1,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     }
+    ],
+    "background": 4,
+    "caption": "look for the yellow sign"
+   },
+   "caption": "look for the yellow sign"
+  },
+  {
+   "id": "58bc56d2a597",
+   "src": "api/trips/hatyai/photos/58bc56d2a597.jpg",
+   "file": "a67c5133-3198-4312-992c-9aa83f285234.jpg",
+   "w": 361,
+   "h": 510,
+   "stop_key": "1-2",
+   "by": "manual",
+   "palette": [
+    "#b98e4a",
+    "#f7f0d7",
+    "#8a592f",
+    "#c7bb91",
+    "#fffdef"
+   ],
+   "symbol": {
+    "visual_facts": [
+     "grid of dish photos",
+     "cream menu card"
+    ],
+    "motif": "pick by picture",
+    "shapes": [
+     {
+      "type": "rect",
+      "x": 50.0,
+      "y": 50.0,
+      "w": 64.0,
+      "h": 76.0,
+      "rotate": 0,
+      "color": 1,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "dots",
+      "x": 50.0,
+      "y": 32.0,
+      "w": 36.0,
+      "h": 30.0,
+      "rotate": 0,
+      "color": 2,
+      "fill": true,
+      "opacity": 1,
+      "count": 3
+     },
+     {
+      "type": "dots",
+      "x": 50.0,
+      "y": 50.0,
+      "w": 36.0,
+      "h": 30.0,
+      "rotate": 0,
+      "color": 0,
+      "fill": true,
+      "opacity": 1,
+      "count": 3
+     },
+     {
+      "type": "dots",
+      "x": 50.0,
+      "y": 68.0,
+      "w": 36.0,
+      "h": 30.0,
+      "rotate": 0,
+      "color": 2,
+      "fill": true,
+      "opacity": 1,
+      "count": 3
+     }
+    ],
+    "background": 4,
+    "caption": "pick by picture"
+   },
+   "caption": "pick by picture"
+  },
+  {
+   "id": "0c865adf0fb4",
+   "src": "api/trips/hatyai/photos/0c865adf0fb4.jpg",
+   "file": "79449d6e-d3f3-41f9-a32f-69bf189ae426.jpg",
+   "w": 289,
+   "h": 312,
+   "stop_key": "1-2",
+   "by": "manual",
+   "palette": [
+    "#565763",
+    "#6090d8",
+    "#131625",
+    "#020612",
+    "#aac2e2"
+   ],
+   "symbol": {
+    "visual_facts": [
+     "black shopfront",
+     "clear blue sky"
+    ],
+    "motif": "black awning, blue sky",
+    "shapes": [
+     {
+      "type": "rect",
+      "x": 50.0,
+      "y": 24.0,
+      "w": 100.0,
+      "h": 48.0,
+      "rotate": 0,
+      "color": 1,
+      "fill": true,
+      "opacity": 0.8,
+      "count": 1
+     },
+     {
+      "type": "rect",
+      "x": 50.0,
+      "y": 66.0,
+      "w": 84.0,
+      "h": 28.0,
+      "rotate": 0,
+      "color": 3,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "line",
+      "x": 50.0,
+      "y": 56.0,
+      "w": 70.0,
+      "h": 30,
+      "rotate": 0,
+      "color": 4,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     }
+    ],
+    "background": 4,
+    "caption": "black awning, blue sky"
+   },
+   "caption": "black awning, blue sky"
+  },
+  {
+   "id": "e9925e4ecd1a",
+   "src": "api/trips/hatyai/photos/e9925e4ecd1a.jpg",
+   "file": "67918e68-c2b6-44cb-831d-08bfbff0033a.jpg",
+   "w": 554,
+   "h": 554,
+   "stop_key": "x-1",
+   "by": "manual",
+   "palette": [
+    "#0a0a0d",
+    "#8a7e5b",
+    "#253e14",
+    "#4e4924",
+    "#96946b"
+   ],
+   "symbol": {
+    "visual_facts": [
+     "mound of pork bones",
+     "green chilli and coriander"
+    ],
+    "motif": "mountain of leng zaab",
+    "shapes": [
+     {
+      "type": "ring",
+      "x": 50.0,
+      "y": 58.0,
+      "w": 80.0,
+      "h": 10.0,
+      "rotate": 0,
+      "color": 1,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "triangle",
+      "x": 50.0,
+      "y": 54.0,
+      "w": 56.0,
+      "h": 40.0,
+      "rotate": 0,
+      "color": 1,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "dots",
+      "x": 50.0,
+      "y": 44.0,
+      "w": 34.0,
+      "h": 18.0,
+      "rotate": 0,
+      "color": 2,
+      "fill": true,
+      "opacity": 1,
+      "count": 6
+     },
+     {
+      "type": "dots",
+      "x": 52.0,
+      "y": 56.0,
+      "w": 44.0,
+      "h": 18.0,
+      "rotate": 0,
+      "color": 2,
+      "fill": true,
+      "opacity": 1,
+      "count": 7
+     }
+    ],
+    "background": 4,
+    "caption": "a mountain of leng zaab"
+   },
+   "caption": "a mountain of leng zaab"
+  },
+  {
+   "id": "aef4df07c50c",
+   "src": "api/trips/hatyai/photos/aef4df07c50c.jpg",
+   "file": "6c362691-82ea-4118-8c58-254d49d1522f.jpg",
+   "w": 289,
+   "h": 312,
+   "stop_key": "1-4",
+   "by": "manual",
+   "palette": [
+    "#666365",
+    "#8c8d93",
+    "#5d403d",
+    "#cbbab7",
+    "#d7dade"
+   ],
+   "symbol": {
+    "visual_facts": [
+     "wooden shopfront",
+     "crab logo"
+    ],
+    "motif": "crab house",
+    "shapes": [
+     {
+      "type": "rect",
+      "x": 50.0,
+      "y": 56.0,
+      "w": 76.0,
+      "h": 60.0,
+      "rotate": 0,
+      "color": 2,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "circle",
+      "x": 50.0,
+      "y": 42.0,
+      "w": 18.0,
+      "h": 30,
+      "rotate": 0,
+      "color": 3,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "rect",
+      "x": 50.0,
+      "y": 70.0,
+      "w": 40.0,
+      "h": 24.0,
+      "rotate": 0,
+      "color": 1,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     }
+    ],
+    "background": 4,
+    "caption": "the crab house"
+   },
+   "caption": "the crab house"
+  },
+  {
+   "id": "47bc426567d0",
+   "src": "api/trips/hatyai/photos/47bc426567d0.jpg",
+   "file": "7a64e457-5c79-42e4-9565-52dcbc9b5bec.jpg",
+   "w": 510,
+   "h": 510,
+   "stop_key": "1-4",
+   "by": "manual",
+   "palette": [
+    "#cec7b9",
+    "#a57b59",
+    "#ccb69c",
+    "#ac977e",
+    "#dfe1dc"
+   ],
+   "symbol": {
+    "visual_facts": [
+     "cracked crab legs fanned out",
+     "round white plate"
+    ],
+    "motif": "crab, cracked open",
+    "shapes": [
+     {
+      "type": "ring",
+      "x": 50.0,
+      "y": 52.0,
+      "w": 82.0,
+      "h": 10.0,
+      "rotate": 0,
+      "color": 3,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "line",
+      "x": 38.0,
+      "y": 40.0,
+      "w": 30.0,
+      "h": 30,
+      "rotate": -35.0,
+      "color": 1,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "line",
+      "x": 46.0,
+      "y": 36.0,
+      "w": 30.0,
+      "h": 30,
+      "rotate": -65.0,
+      "color": 1,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "line",
+      "x": 60.0,
+      "y": 38.0,
+      "w": 30.0,
+      "h": 30,
+      "rotate": 60.0,
+      "color": 1,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "circle",
+      "x": 50.0,
+      "y": 58.0,
+      "w": 18.0,
+      "h": 30,
+      "rotate": 0,
+      "color": 2,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     }
+    ],
+    "background": 4,
+    "caption": "crab, cracked open"
+   },
+   "caption": "crab, cracked open"
+  },
+  {
+   "id": "d1893523aaba",
+   "src": "api/trips/hatyai/photos/d1893523aaba.jpg",
+   "file": "56020b72-0a29-4263-aa82-e9d041a9fa1e.jpg",
+   "w": 680,
+   "h": 510,
+   "stop_key": "1-5",
+   "by": "manual",
+   "palette": [
+    "#493427",
+    "#72523a",
+    "#1b0d09",
+    "#3a2418",
+    "#8d735c"
+   ],
+   "symbol": {
+    "visual_facts": [
+     "fairy lights in the branches",
+     "warm night"
+    ],
+    "motif": "lights in the branches",
+    "shapes": [
+     {
+      "type": "triangle",
+      "x": 50.0,
+      "y": 62.0,
+      "w": 70.0,
+      "h": 60.0,
+      "rotate": 0,
+      "color": 0,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "dots",
+      "x": 50.0,
+      "y": 34.0,
+      "w": 60.0,
+      "h": 12.0,
+      "rotate": 0,
+      "color": 4,
+      "fill": true,
+      "opacity": 1,
+      "count": 8
+     },
+     {
+      "type": "dots",
+      "x": 50.0,
+      "y": 48.0,
+      "w": 72.0,
+      "h": 12.0,
+      "rotate": 0,
+      "color": 4,
+      "fill": true,
+      "opacity": 0.8,
+      "count": 9
+     },
+     {
+      "type": "dots",
+      "x": 50.0,
+      "y": 62.0,
+      "w": 56.0,
+      "h": 10.0,
+      "rotate": 0,
+      "color": 4,
+      "fill": true,
+      "opacity": 0.6,
+      "count": 7
+     },
+     {
+      "type": "rect",
+      "x": 50.0,
+      "y": 90.0,
+      "w": 6.0,
+      "h": 16.0,
+      "rotate": 0,
+      "color": 1,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     }
+    ],
+    "background": 2,
+    "caption": "lights in the branches"
+   },
+   "caption": "lights in the branches"
+  },
+  {
+   "id": "f600aa1ac20f",
+   "src": "api/trips/hatyai/photos/f600aa1ac20f.jpg",
+   "file": "89a7ace9-aa17-4325-a87e-cba51c4c3e7e.jpg",
+   "w": 680,
+   "h": 510,
+   "stop_key": "1-5",
+   "by": "manual",
+   "palette": [
+    "#4d4d2c",
+    "#ca7d16",
+    "#a15416",
+    "#91340c",
+    "#e2dacb"
+   ],
+   "symbol": {
+    "visual_facts": [
+     "whole fried fish",
+     "glossy orange sauce chunks"
+    ],
+    "motif": "sweet-sour fish",
+    "shapes": [
+     {
+      "type": "rect",
+      "x": 50.0,
+      "y": 52.0,
+      "w": 70.0,
+      "h": 26.0,
+      "rotate": -12.0,
+      "color": 3,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "triangle",
+      "x": 86.0,
+      "y": 46.0,
+      "w": 14.0,
+      "h": 18.0,
+      "rotate": 78.0,
+      "color": 3,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "dots",
+      "x": 48.0,
+      "y": 48.0,
+      "w": 50.0,
+      "h": 24.0,
+      "rotate": 0,
+      "color": 1,
+      "fill": true,
+      "opacity": 1,
+      "count": 6
+     },
+     {
+      "type": "dots",
+      "x": 52.0,
+      "y": 58.0,
+      "w": 40.0,
+      "h": 18.0,
+      "rotate": 0,
+      "color": 2,
+      "fill": true,
+      "opacity": 1,
+      "count": 5
+     }
+    ],
+    "background": 4,
+    "caption": "orange, glossy, whole"
+   },
+   "caption": "orange, glossy, whole"
+  },
+  {
+   "id": "caafa2ad344e",
+   "src": "api/trips/hatyai/photos/caafa2ad344e.jpg",
+   "file": "fe80621c-4227-4536-ae59-2654c9981bf3.jpg",
+   "w": 510,
+   "h": 510,
+   "stop_key": "x-2",
+   "by": "manual",
+   "palette": [
+    "#414b3e",
+    "#66775e",
+    "#99a996",
+    "#55534f",
+    "#d0d4d0"
+   ],
+   "symbol": {
+    "visual_facts": [
+     "shady green garden",
+     "white signpost"
+    ],
+    "motif": "porridge under trees",
+    "shapes": [
+     {
+      "type": "circle",
+      "x": 34.0,
+      "y": 34.0,
+      "w": 44.0,
+      "h": 30,
+      "rotate": 0,
+      "color": 1,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "circle",
+      "x": 66.0,
+      "y": 30.0,
+      "w": 40.0,
+      "h": 30,
+      "rotate": 0,
+      "color": 0,
+      "fill": true,
+      "opacity": 0.9,
+      "count": 1
+     },
+     {
+      "type": "line",
+      "x": 58.0,
+      "y": 66.0,
+      "w": 44.0,
+      "h": 30,
+      "rotate": 90.0,
+      "color": 3,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "rect",
+      "x": 64.0,
+      "y": 46.0,
+      "w": 30.0,
+      "h": 14.0,
+      "rotate": 0,
+      "color": 2,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     }
+    ],
+    "background": 4,
+    "caption": "porridge under the trees"
+   },
+   "caption": "porridge under the trees"
+  },
+  {
+   "id": "34136d289226",
+   "src": "api/trips/hatyai/photos/34136d289226.jpg",
+   "file": "72de1d02-3bd7-4054-b4ad-353df49a008d.jpg",
+   "w": 382,
+   "h": 510,
+   "stop_key": "x-2",
+   "by": "manual",
+   "palette": [
+    "#ca9b47",
+    "#2f3b41",
+    "#0e1114",
+    "#714f2e",
+    "#e1ccab"
+   ],
+   "symbol": {
+    "visual_facts": [
+     "white congee bowl",
+     "two golden egg yolks",
+     "crispy pork strips"
+    ],
+    "motif": "two golden yolks",
+    "shapes": [
+     {
+      "type": "ring",
+      "x": 50.0,
+      "y": 50.0,
+      "w": 78.0,
+      "h": 10.0,
+      "rotate": 0,
+      "color": 1,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "circle",
+      "x": 40.0,
+      "y": 60.0,
+      "w": 14.0,
+      "h": 30,
+      "rotate": 0,
+      "color": 0,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "circle",
+      "x": 56.0,
+      "y": 66.0,
+      "w": 14.0,
+      "h": 30,
+      "rotate": 0,
+      "color": 0,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "rect",
+      "x": 40.0,
+      "y": 38.0,
+      "w": 20.0,
+      "h": 7.0,
+      "rotate": -20.0,
+      "color": 3,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "rect",
+      "x": 56.0,
+      "y": 36.0,
+      "w": 18.0,
+      "h": 7.0,
+      "rotate": 10.0,
+      "color": 3,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     }
+    ],
+    "background": 4,
+    "caption": "two golden yolks"
+   },
+   "caption": "two golden yolks"
+  },
+  {
+   "id": "95e5e28c314e",
+   "src": "api/trips/hatyai/photos/95e5e28c314e.jpg",
+   "file": "52e8e35c-6903-4372-a0db-5fbd705fc043.jpg",
+   "w": 382,
+   "h": 510,
+   "stop_key": "0-2",
+   "by": "manual",
+   "palette": [
+    "#363532",
+    "#8e8982",
+    "#5d5a55",
+    "#424d4e",
+    "#e7e7e7"
+   ],
+   "symbol": {
+    "visual_facts": [
+     "green shop awning",
+     "parked scooters",
+     "rainy street"
+    ],
+    "motif": "rain, scooters, awning",
+    "shapes": [
+     {
+      "type": "rect",
+      "x": 50.0,
+      "y": 34.0,
+      "w": 70.0,
+      "h": 16.0,
+      "rotate": 0,
+      "color": 3,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "rect",
+      "x": 50.0,
+      "y": 58.0,
+      "w": 56.0,
+      "h": 30.0,
+      "rotate": 0,
+      "color": 1,
+      "fill": true,
+      "opacity": 0.7,
+      "count": 1
+     },
+     {
+      "type": "dots",
+      "x": 50.0,
+      "y": 82.0,
+      "w": 56.0,
+      "h": 30.0,
+      "rotate": 0,
+      "color": 0,
+      "fill": true,
+      "opacity": 1,
+      "count": 3
+     },
+     {
+      "type": "line",
+      "x": 50.0,
+      "y": 92.0,
+      "w": 90.0,
+      "h": 30,
+      "rotate": 0,
+      "color": 2,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     }
+    ],
+    "background": 4,
+    "caption": "rain, scooters, green awning"
+   },
+   "caption": "rain, scooters, green awning"
+  },
+  {
+   "id": "634bbdfd5c3d",
+   "src": "api/trips/hatyai/photos/634bbdfd5c3d.jpg",
+   "file": "72bf3116-8992-479b-bb94-65b3641ace14.jpg",
+   "w": 382,
+   "h": 510,
+   "stop_key": "0-2",
+   "by": "manual",
+   "palette": [
+    "#c9a879",
+    "#876e37",
+    "#683a1b",
+    "#c4c4b3",
+    "#d6d6cf"
+   ],
+   "symbol": {
+    "visual_facts": [
+     "prawns on greens",
+     "halved boiled eggs"
+    ],
+    "motif": "prawns and eggs",
+    "shapes": [
+     {
+      "type": "ring",
+      "x": 50.0,
+      "y": 50.0,
+      "w": 84.0,
+      "h": 10.0,
+      "rotate": 0,
+      "color": 3,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "arc",
+      "x": 40.0,
+      "y": 42.0,
+      "w": 22.0,
+      "h": 30,
+      "rotate": 30.0,
+      "color": 2,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "arc",
+      "x": 56.0,
+      "y": 40.0,
+      "w": 20.0,
+      "h": 30,
+      "rotate": -20.0,
+      "color": 2,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "circle",
+      "x": 72.0,
+      "y": 54.0,
+      "w": 14.0,
+      "h": 30,
+      "rotate": 0,
+      "color": 0,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "circle",
+      "x": 68.0,
+      "y": 68.0,
+      "w": 14.0,
+      "h": 30,
+      "rotate": 0,
+      "color": 0,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "line",
+      "x": 36.0,
+      "y": 64.0,
+      "w": 28.0,
+      "h": 30,
+      "rotate": -30.0,
+      "color": 1,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     }
+    ],
+    "background": 4,
+    "caption": "prawns, eggs, morning glory"
+   },
+   "caption": "prawns, eggs, morning glory"
+  },
+  {
+   "id": "f211070c7449",
+   "src": "api/trips/hatyai/photos/f211070c7449.jpg",
+   "file": "96a04c2a-a380-4d38-854c-e2b80de86f01.jpg",
+   "w": 680,
+   "h": 510,
+   "stop_key": "0-2",
+   "by": "manual",
+   "palette": [
+    "#bb9b7b",
+    "#796f64",
+    "#9a9285",
+    "#9a7a62",
+    "#c1beaf"
+   ],
+   "symbol": {
+    "visual_facts": [
+     "table of small shared plates"
+    ],
+    "motif": "everything, shared",
+    "shapes": [
+     {
+      "type": "circle",
+      "x": 30.0,
+      "y": 32.0,
+      "w": 24.0,
+      "h": 30,
+      "rotate": 0,
+      "color": 0,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "circle",
+      "x": 62.0,
+      "y": 28.0,
+      "w": 20.0,
+      "h": 30,
+      "rotate": 0,
+      "color": 3,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "circle",
+      "x": 72.0,
+      "y": 58.0,
+      "w": 26.0,
+      "h": 30,
+      "rotate": 0,
+      "color": 1,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "circle",
+      "x": 40.0,
+      "y": 64.0,
+      "w": 22.0,
+      "h": 30,
+      "rotate": 0,
+      "color": 2,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "circle",
+      "x": 52.0,
+      "y": 46.0,
+      "w": 12.0,
+      "h": 30,
+      "rotate": 0,
+      "color": 3,
+      "fill": true,
+      "opacity": 0.7,
+      "count": 1
+     }
+    ],
+    "background": 4,
+    "caption": "everything, shared"
+   },
+   "caption": "everything, shared"
+  },
+  {
+   "id": "5f1093a2039c",
+   "src": "api/trips/hatyai/photos/5f1093a2039c.jpg",
+   "file": "5b1f25e1-00c3-426c-b9ca-7ac146ed5a71.jpg",
+   "w": 294,
+   "h": 220,
+   "stop_key": "0-1",
+   "by": "manual",
+   "palette": [
+    "#9f7237",
+    "#c7bb9f",
+    "#191a09",
+    "#c49c5f",
+    "#d9d3c5"
+   ],
+   "symbol": {
+    "visual_facts": [
+     "dark boat-noodle broth",
+     "meatballs",
+     "steam"
+    ],
+    "motif": "small bowls, many bowls",
+    "shapes": [
+     {
+      "type": "arc",
+      "x": 50.0,
+      "y": 56.0,
+      "w": 62.0,
+      "h": 30,
+      "rotate": 0,
+      "color": 0,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "rect",
+      "x": 50.0,
+      "y": 56.0,
+      "w": 62.0,
+      "h": 3.0,
+      "rotate": 0,
+      "color": 2,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "dots",
+      "x": 50.0,
+      "y": 62.0,
+      "w": 22.0,
+      "h": 30.0,
+      "rotate": 0,
+      "color": 1,
+      "fill": true,
+      "opacity": 1,
+      "count": 3
+     },
+     {
+      "type": "steam",
+      "x": 50.0,
+      "y": 30.0,
+      "w": 30.0,
+      "h": 28.0,
+      "rotate": 0,
+      "color": 3,
+      "fill": true,
+      "opacity": 1,
+      "count": 3
+     }
+    ],
+    "background": 4,
+    "caption": "small bowls, many bowls"
+   },
+   "caption": "small bowls, many bowls"
+  },
+  {
+   "id": "9787c4b27af7",
+   "src": "api/trips/hatyai/photos/9787c4b27af7.jpg",
+   "file": "caa294de-8ac5-41e4-a21c-d26e99e46aa1.jpg",
+   "w": 510,
+   "h": 510,
+   "stop_key": "1-0",
+   "by": "manual",
+   "palette": [
+    "#978b72",
+    "#6b411d",
+    "#6f6047",
+    "#3d2f1d",
+    "#c9af82"
+   ],
+   "symbol": {
+    "visual_facts": [
+     "congee with ginger",
+     "youtiao sticks",
+     "steamed bun"
+    ],
+    "motif": "jok at sunrise",
+    "shapes": [
+     {
+      "type": "ring",
+      "x": 40.0,
+      "y": 46.0,
+      "w": 52.0,
+      "h": 10.0,
+      "rotate": 0,
+      "color": 2,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "line",
+      "x": 40.0,
+      "y": 46.0,
+      "w": 12.0,
+      "h": 30,
+      "rotate": 30.0,
+      "color": 1,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "rect",
+      "x": 76.0,
+      "y": 34.0,
+      "w": 10.0,
+      "h": 30.0,
+      "rotate": 20.0,
+      "color": 0,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "rect",
+      "x": 84.0,
+      "y": 42.0,
+      "w": 10.0,
+      "h": 30.0,
+      "rotate": 20.0,
+      "color": 0,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "circle",
+      "x": 70.0,
+      "y": 76.0,
+      "w": 22.0,
+      "h": 30,
+      "rotate": 0,
+      "color": 3,
+      "fill": true,
+      "opacity": 0.4,
+      "count": 1
+     }
+    ],
+    "background": 4,
+    "caption": "jok at sunrise"
+   },
+   "caption": "jok at sunrise"
+  },
+  {
+   "id": "bf8efad5e5e5",
+   "src": "api/trips/hatyai/photos/bf8efad5e5e5.jpg",
+   "file": "bec6ce93-cc06-4871-8998-9c0b3d4e7cbc.jpg",
+   "w": 382,
+   "h": 510,
+   "stop_key": "2-2",
+   "by": "manual",
+   "palette": [
+    "#9f6430",
+    "#7c3a19",
+    "#c79450",
+    "#a8c695",
+    "#e0c397"
+   ],
+   "symbol": {
+    "visual_facts": [
+     "golden fried chicken",
+     "crispy shallots",
+     "lettuce"
+    ],
+    "motif": "crunch and shallots",
+    "shapes": [
+     {
+      "type": "triangle",
+      "x": 38.0,
+      "y": 44.0,
+      "w": 30.0,
+      "h": 34.0,
+      "rotate": -20.0,
+      "color": 0,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "triangle",
+      "x": 60.0,
+      "y": 52.0,
+      "w": 30.0,
+      "h": 34.0,
+      "rotate": 25.0,
+      "color": 1,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     },
+     {
+      "type": "dots",
+      "x": 50.0,
+      "y": 76.0,
+      "w": 52.0,
+      "h": 12.0,
+      "rotate": 0,
+      "color": 2,
+      "fill": true,
+      "opacity": 1,
+      "count": 8
+     },
+     {
+      "type": "circle",
+      "x": 78.0,
+      "y": 26.0,
+      "w": 22.0,
+      "h": 30,
+      "rotate": 0,
+      "color": 3,
+      "fill": true,
+      "opacity": 1,
+      "count": 1
+     }
+    ],
+    "background": 4,
+    "caption": "crunch, shallots, sticky rice"
+   },
+   "caption": "crunch, shallots, sticky rice"
+  }
+ ]
+}

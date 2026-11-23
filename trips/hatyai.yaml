@@ -1,0 +1,226 @@
+# STAGE 1 — INTENT. Edit this file, then:  uv run foodhunt plan trips/hatyai.yaml
+# confidence: high = Google/official, medium = 2+ web listings agree, low = single/unclear source
+trip: Hatyai Food Trip
+city: Hat Yai, Songkhla, Thailand
+center: [7.0074, 100.4690]            # Hat Yai town centre (Kim Yong area)
+start: {name: Lee Gardens Plaza Hotel, lat: 7.0058506, lng: 100.4716957}
+# ASSUMPTION: Fri–Sun so Lee Garden Night Market (Fri–Sun only) is included. Change dates freely.
+days:
+  - {date: 2026-12-04, start_time: "06:30", end_time: "23:30"}
+  - {date: 2026-12-05, start_time: "06:30", end_time: "23:30"}
+  - {date: 2026-12-06, start_time: "06:30", end_time: "23:30"}
+max_stops_per_day: 7          # stomach limit
+meal_gap_min: 120             # min gap between two full meals (desserts/snacks exempt)
+walk_max_m: 1200              # longer than this → Grab
+
+places:
+  # ---------- from your Notion list ----------
+  - name: Khrua Siblor Kitchen
+    search: KHRUA SIBLOR                  # name Google's share link resolves to
+    display: Khrua Siblor Kitchen — 全女班撑起的煮炒餐厅
+    kind: meal
+    share_link: https://share.google/XyXvletTdgKCVttAU
+    confidence: low                       # hours not found online
+    order: Stir-fry (煮炒) dishes — ask for the house specials
+    notion_images:
+      - notion-file-block://4204f917-7a12-801c-af51-ed7f57945c21/5864e2dc-1884-4702-b07b-d4ead69f3557?space_id=afc28f5d-1582-459b-9d95-c75820c44dd2&name=image.png
+      - notion-file-block://4204f917-7a12-8038-9cd8-ee1a36a6ad53/ac8e4f96-4b0a-4945-b514-5cb03da12b51?space_id=afc28f5d-1582-459b-9d95-c75820c44dd2&name=image.png
+  - name: Krua Pa Yad
+    kind: meal
+    address_query: 272 Sripoovanart Road
+    location: approx
+    hours: "10:00-14:00,16:00-20:00"      # kupi.com — two shifts
+    confidence: medium
+    share_link: https://share.google/6XQi4cwiWj1s0JR82
+    tip: Avoid peak meal times — Rednote + kupi both warn of long queues (20–30 min on weekends)
+    notion_images:
+      - notion-file-block://4204f917-7a12-804d-9b8b-c170c7ffa815/a67c5133-3198-4312-992c-9aa83f285234?space_id=afc28f5d-1582-459b-9d95-c75820c44dd2&name=image.png
+      - notion-file-block://4204f917-7a12-8094-9cf2-d99447718417/79449d6e-d3f3-41f9-a32f-69bf189ae426?space_id=afc28f5d-1582-459b-9d95-c75820c44dd2&name=image.png
+  - name: Leng Zapp Hotpot
+    search: โนราเล้งแซ่บหม้อไฟ                # Thai name from the share link (Wongnai 4.2★)
+    kind: hotpot
+    share_link: https://share.google/Ky2gV7BbELGbbCiKI
+    confidence: low
+    dwell: 75
+    notion_images:
+      - notion-file-block://4204f917-7a12-8066-b577-c10ba778ee15/67918e68-c2b6-44cb-831d-08bfbff0033a?space_id=afc28f5d-1582-459b-9d95-c75820c44dd2&name=image.png
+  - name: Bankampu Hatyai
+    display: Bankampu Hatyai (蟹肉炒饭)
+    kind: meal
+    hours: "11:00-21:00"                  # Wongnai 21:00; others say 22:00 → use the earlier
+    confidence: medium
+    order: Crab fried rice
+    share_link: https://share.google/PSoIWB8Qzu5i1ylH3
+    notion_images:
+      - notion-file-block://4204f917-7a12-8078-9db6-f71275dee834/6c362691-82ea-4118-8c58-254d49d1522f?space_id=afc28f5d-1582-459b-9d95-c75820c44dd2&name=image.png
+      - notion-file-block://4204f917-7a12-80d1-a0a4-efb58edc3d46/7a64e457-5c79-42e4-9565-52dcbc9b5bec?space_id=afc28f5d-1582-459b-9d95-c75820c44dd2&name=image.png
+  - name: Alive Hatyai
+    display: Alive 树屋餐厅 (treehouse + live band)
+    kind: meal
+    search: Alive Cheewit Cheewa          # real name behind the share link
+    lat: 6.99757                          # OSM/Photon name match
+    lng: 100.51095
+    not_before: "18:00"
+    hours: "Mo,We-Su 11:30-23:00; Tu off"  # Trip.com 11:30–23:00 + Rednote: closed Tuesday
+    confidence: medium
+    dwell: 75
+    tip: Go after dark for the lights + band
+    share_link: https://share.google/f74KQ4ns17hdPbHdA
+    notion_images:
+      - notion-file-block://4204f917-7a12-8015-ac0f-cd11f7ab75c4/56020b72-0a29-4263-aa82-e9d041a9fa1e?space_id=afc28f5d-1582-459b-9d95-c75820c44dd2&name=image.png
+      - notion-file-block://4204f917-7a12-80c0-97e8-c01da5992687/89a7ace9-aa17-4325-a87e-cba51c4c3e7e?space_id=afc28f5d-1582-459b-9d95-c75820c44dd2&name=image.png
+  - name: Joke Katmu Hatyai
+    search: Joke KakMu Hatyai
+    display: Joke Katmu Hatyai (porridge)
+    kind: breakfast
+    confidence: low
+    share_link: https://share.google/PiIYkv8wbHe5uDmFa
+    notion_images:
+      - notion-file-block://4204f917-7a12-800e-ba7b-ea00a09ac735/fe80621c-4227-4536-ae59-2654c9981bf3?space_id=afc28f5d-1582-459b-9d95-c75820c44dd2&name=image.png
+      - notion-file-block://4204f917-7a12-80bc-ae8b-ef6a9cfaf3c7/72de1d02-3bd7-4054-b4ad-353df49a008d?space_id=afc28f5d-1582-459b-9d95-c75820c44dd2&name=image.png
+  - name: Baan Khun Bhu
+    kind: meal
+    address_query: 27 Prachathipat 1 Road
+    location: approx
+    hours: "Mo,Tu,Th-Su 11:00-20:00; We off"   # kupi 11–24 vs Rednote 10:30–20:00 → overlap; both say Wed closed
+    confidence_note: 2 sources agree on Wed closed
+    confidence: medium
+    share_link: https://share.google/Ozy9jWbxaahjvMl4L
+    notion_images:
+      - notion-file-block://4204f917-7a12-800d-b843-f6140ae3cc4d/52e8e35c-6903-4372-a0db-5fbd705fc043?space_id=afc28f5d-1582-459b-9d95-c75820c44dd2&name=image.png
+      - notion-file-block://4204f917-7a12-8094-b912-d5e1a9180d02/72bf3116-8992-479b-bb94-65b3641ace14?space_id=afc28f5d-1582-459b-9d95-c75820c44dd2&name=image.png
+      - notion-file-block://4204f917-7a12-809f-8c1c-f7c03acaf88f/96a04c2a-a380-4d38-854c-e2b80de86f01?space_id=afc28f5d-1582-459b-9d95-c75820c44dd2&name=image.png
+
+  # ---------- from Rednote list ----------
+  - name: Ko Chew Stewed Pork Leg On Rice
+    display: 秋哥猪脚饭 Ko Chew Stewed Pork Leg
+    kind: breakfast
+    plus_code: 2F3C+4WG                   # exact — from a Rednote note's address
+    hours: "06:30-14:30"                  # Notion 6:30 / Rednote 6:00–15:00 / Wanderlog "sold out by 2:30pm"
+    sells_out: true
+    must: true
+    confidence: medium
+    rating: 4.3
+    reviews: 854
+    order: Pork leg rice (猪脚饭)
+  - name: Makro Hat Yai
+    display: Makro 三文鱼寿司 (salmon sushi)
+    kind: snack
+    address_query: Kanjanavanich Road Makro
+    hours: "06:00-22:00"
+    confidence: medium
+    rating: 4.4
+    reviews: 3936
+    dwell: 30
+    order: Salmon sushi in the fresh-food section
+  - name: Lee Garden Night Market
+    display: Lee Garden Night Market — 生蚝, 烧肉, Nutella 香蕉煎饼
+    kind: night_market
+    plus_code: 2F4C+9JR
+    hours: "Fr-Su 17:00-24:00"           # trip101: Fri–Sun only
+    not_before: "18:00"                   # stalls still setting up at 5pm
+    confidence: medium
+    rating: 4.3
+    reviews: 1499
+    dwell: 75
+    must: true
+    order: Oysters 生蚝, BBQ pork 烧肉, Nutella banana roti 香蕉煎饼; snack stalls in front of McDonald's
+  - name: Tumrub Suki Khao Pad Pu
+    display: Tumrub Suki Khao Pad Pu 蟹肉炒饭
+    kind: meal
+    address_query: Chaiyakuluthit Soi 4
+    location: approx
+    hours: "10:00-21:00"                  # opening 10am from Rednote; close time unverified
+    confidence: low
+    rating: 4.4
+    reviews: 378
+    order: Crab fried rice + red tom yum (big portions — share)
+  - name: CheevitCheeva Hatyai
+    display: CheevitCheeva 咸蛋 & 芒果冰
+    kind: dessert
+    lat: 7.00164                          # APPROX: Rajyindee Rd (shop is in Soi 6/1)
+    lng: 100.48007
+    location: approx
+    hours: "10:00-22:00"
+    confidence: medium
+    rating: 4.3
+    reviews: 1016
+    dwell: 35
+    order: Salted-egg bingsu + mango bingsu
+  - name: Ken Phu Pang
+    display: Ken Phu Pang 草莓 & 布雷 Baked Toast
+    kind: dessert
+    address_query: 38 Thanrattanakorn Road
+    hours: "11:00-20:00"                  # close time unverified
+    confidence: low
+    rating: 4.6
+    reviews: 140
+    dwell: 30
+    order: Strawberry toast, brûlée toast
+  - name: Central Hatyai
+    display: Central Hatyai 黄油鸡蛋糕 (butter egg cake)
+    kind: mall
+    search: Central Festival Hatyai
+    lat: 6.99186                          # OSM name match
+    lng: 100.48296
+    hours: "10:00-21:00"
+    confidence: medium
+    rating: 4.5
+    reviews: 15149
+    dwell: 40
+    order: Butter egg cake stall inside the mall
+  - name: Peter Kanomkrok Baitoey
+    display: Peter Kanomkrok 班兰椰子小煎饼
+    kind: dessert
+    lat: 7.01140                          # APPROX: Sangsri Soi 3/4
+    lng: 100.47213
+    location: approx
+    hours: "15:00-20:00"                  # opens 3pm; close time unverified
+    confidence: low
+    rating: 4.9
+    reviews: 19
+    dwell: 20
+    sells_out: true
+    order: Pandan kanom krok
+  - name: Sept Craft Ice Cream
+    kind: dessert
+    lat: 6.99867                          # APPROX: Niphat Uthit 1 Soi 3
+    lng: 100.46948
+    location: approx
+    hours: "11:30-21:00"
+    confidence: low
+    rating: 4.8
+    reviews: 83
+    dwell: 25
+
+  # ---------- Lee Garden area ----------
+  - name: Chen Long Boat Noodle
+    display: Chen Long Boat Noodle (成龙船面)
+    kind: meal
+    lat: 7.00678                          # OSM 'Chen loong Boat noodles', Thanon Sangchan
+    lng: 100.47232
+    hours: "07:30-15:30"                  # 2 listings agree
+    confidence: medium
+    dwell: 30
+    order: Boat noodles — small bowls, order a few
+    notion_images:
+      - notion-file-block://4204f917-7a12-805f-853f-fd3c7bea5cd1/5b1f25e1-00c3-426c-b9ca-7ac146ed5a71?space_id=afc28f5d-1582-459b-9d95-c75820c44dd2&name=image.png
+  - name: Jok Songkhla
+    display: Jok Songkhla (pork porridge)
+    kind: breakfast
+    address_query: Punnakan Road
+    hours: "06:00-11:00"                  # breakfast spot; exact hours unverified
+    confidence: low
+    dwell: 30
+    notion_images:
+      - notion-file-block://4204f917-7a12-8065-b07c-ef4633739bb9/caa294de-8ac5-41e4-a21c-d26e99e46aa1?space_id=afc28f5d-1582-459b-9d95-c75820c44dd2&name=image.png
+  - name: Kai Tod Decha
+    display: Kai-Tod Decha 炸鸡 (Chee Uthit branch)
+    kind: meal
+    address_query: 93 Chee Uthit Road
+    hours: "10:00-21:30"
+    confidence: medium
+    dwell: 30
+    order: Fried chicken + sticky rice + crispy shallots (halal)
+    notion_images:
+      - notion-file-block://4204f917-7a12-80cb-a702-ca7be5a6e745/bec6ce93-cc06-4871-8998-9c0b3d4e7cbc?space_id=afc28f5d-1582-459b-9d95-c75820c44dd2&name=image.png
