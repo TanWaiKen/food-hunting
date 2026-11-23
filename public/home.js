@@ -28,9 +28,33 @@
     </article>`;
   }
 
-  const fresh = `<a class="new-card reveal" href="trip.html?plan=1"><div><h3>Somewhere new?</h3>
+  const fresh = q => q
+    ? `<a class="new-card reveal" href="trip.html?plan=1&q=${encodeURIComponent(q)}"><div><h3>Plan ${esc(q)}?</h3>
+    <p>No trip for that yet. We'll research it, verify each place and time the route.</p>
+    <span class="btn btn-primary">Plan this trip <span class="arrow" aria-hidden="true">→</span></span></div></a>`
+    : `<a class="new-card reveal" href="trip.html?plan=1"><div><h3>Somewhere new?</h3>
     <p>Name the city and the dishes. The route comes back verified and timed.</p>
     <span class="btn btn-primary">Plan a trip <span class="arrow" aria-hidden="true">→</span></span></div></a>`;
+
+  /* search: every word must appear in the trip's title, city, places or dishes (accents/case ignored) */
+  const norm = s => String(s || "").normalize("NFKD").replace(/\p{M}/gu, "").toLowerCase().replace(/\s+/g, "");
+  let all = [];
+  function show(q) {
+    q = (q || "").trim();
+    const terms = q.split(/\s+/).filter(Boolean).map(norm);
+    const hits = !terms.length ? all : all.filter(t => {
+      const hay = norm([t.title, t.city, t.slug, ...(t.places || []), ...(t.dishes || [])].join(" "));
+      return terms.every(w => hay.includes(w));
+    });
+    document.getElementById("tripGrid").innerHTML = hits.map(card).join("") + fresh(hits.length ? "" : q);
+    document.getElementById("searchNote").textContent = !q ? "" : hits.length ? `${hits.length} trip${hits.length > 1 ? "s" : ""} match “${q}”` : `Nothing for “${q}” yet`;
+    reveal();
+  }
+  const form = document.getElementById("tripSearch"), input = document.getElementById("q");
+  input.value = new URLSearchParams(location.search).get("q") || "";
+  input.addEventListener("input", () => show(input.value));
+  form.addEventListener("submit", e => { e.preventDefault(); show(input.value);
+    history.replaceState(null, "", input.value.trim() ? `?q=${encodeURIComponent(input.value.trim())}#trips` : location.pathname); });
 
   function reveal() {
     const els = document.querySelectorAll(".reveal:not(.in)");
@@ -39,9 +63,7 @@
     els.forEach((e, i) => { e.style.setProperty("--d", `${(i % 5) * 70}ms`); io.observe(e); });
   }
 
-  fetch("api/trips").then(r => r.json()).then(trips => {
-    document.getElementById("tripGrid").innerHTML = trips.map(card).join("") + fresh;
-    reveal();
-  }).catch(() => { document.getElementById("tripGrid").innerHTML = `<p class="muted">Couldn't load trips.</p>` + fresh; reveal(); });
+  fetch("api/trips").then(r => r.json()).then(trips => { all = trips; show(input.value); })
+    .catch(() => { document.getElementById("tripGrid").innerHTML = `<p class="muted">Couldn't load trips.</p>` + fresh(""); reveal(); });
   reveal();
 })();

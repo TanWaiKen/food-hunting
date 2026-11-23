@@ -169,3 +169,8 @@ Format: **Step / Decision** → Why → How → Result. Newest at the bottom. Do
 - **Why:** You compared the three directions on `/lab.html` and picked the last one.
 - **How:** A Poster layer on top of the shared tokens: Anton caps headlines that wipe in line by line, square bordered buttons with an ink fill that swipes in, caps underlined links, rule-topped cards and stats, no rounded corners. It's applied to the home, route and album pages. Rules are in DESIGN.md §12.
 - **Result:** Checked on desktop (1360px) and phone (375px) with no sideways scroll. The mobile top bar was trimmed so the button labels no longer wrap.
+
+### D29. Upload photos from each restaurant; search trips on the home page
+- **Why:** You want every suggested restaurant to have its own place for photos that then become the album. You also want the site to work for any trip, not just Hat Yai, so you can search.
+- **How:** Each route card has a "Your photos" strip with an **Add photos** button. The upload sends that stop's key, so the photo is filed under that restaurant without needing GPS/EXIF. On the home page, a search box matches trip title, city, place names and dishes (case and accents ignored). If nothing matches, it offers "Plan <city>?", which opens the planner already filled in.
+- **Result:** Tested: "pork" finds Hatyai, "Penang" offers a new plan. Cards show the photos already filed there. 29 tests pass, including uploading to a set stop and rejecting an unknown stop.

@@ -96,3 +96,23 @@ def test_extract_spec_calls_claude_with_image_and_schema():
     assert seen["model"] == config.AGENT_MODEL and seen["output_format"] is abstract.SymbolSpec
     content = seen["messages"][0]["content"]
     assert content[0]["type"] == "image" and "Ko Chew" in content[1]["text"]
+
+
+def test_upload_to_a_specific_stop(client, tmpdata, monkeypatch):
+    """A photo added from a restaurant card goes to that stop, even with no EXIF."""
+    monkeypatch.setattr(web, "_view", lambda slug: VIEW)
+    import io
+    from PIL import Image
+    buf = io.BytesIO(); Image.new("RGB", (40, 30), (200, 80, 40)).save(buf, "JPEG")
+    r = client.post("/api/trips/t/photos", data={"stop_key": "0-1"},
+                    files=[("files", ("plain.jpg", buf.getvalue(), "image/jpeg"))])
+    assert r.status_code == 200, r.text
+    added = r.json()["added"][0]
+    assert added["stop_key"] == "0-1" and added["by"] == "manual"
+    assert client.post("/api/trips/t/photos", data={"stop_key": "9-9"},
+                       files=[("files", ("x.jpg", buf.getvalue(), "image/jpeg"))]).status_code == 400
+
+
+def test_trip_list_is_searchable(client):
+    t = client.get("/api/trips").json()[0]
+    assert t["places"] and any("pork" in d.lower() for d in t["dishes"])

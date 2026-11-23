@@ -40,6 +40,14 @@
     <div class="section-head">
       <p class="kicker">Trips</p>
       <h2 id="tripsTitle">Routes you can follow tomorrow morning</h2>
+      <form class="search" id="tripSearch" role="search" autocomplete="off">
+        <label for="q" class="eyebrow">Search a city, a place or a dish</label>
+        <div class="search-row">
+          <input id="q" name="q" type="search" placeholder="Hat Yai, pork leg rice, Penang…" enterkeyhint="search">
+          <button class="btn" type="submit">Search</button>
+        </div>
+        <p class="search-note" id="searchNote" aria-live="polite"></p>
+      </form>
     </div>
     <div class="trip-grid" id="tripGrid"><p class="muted">Loading trips…</p></div>
   </section>

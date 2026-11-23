@@ -23,7 +23,8 @@
   const level = v => v === 0 ? "Closed" : v < 35 ? "Quiet" : v < 70 ? "Medium" : "Busy";
   const hourLabel = h => h === 0 ? "12am" : h < 12 ? `${h}am` : h === 12 ? "12pm" : `${h - 12}pm`;
 
-  let view = null, dayIdx = 0, map = null, layer = null, markers = {}, health = {};
+  let view = null, dayIdx = 0, map = null, layer = null, markers = {}, health = {}, mine = {};
+  const slug = () => new URLSearchParams(location.search).get("trip") || $("#tripPicker")?.value || "hatyai";
 
   /* ---------------- rendering ---------------- */
   function render(v) {
@@ -58,6 +59,7 @@
         · Routes: OpenStreetMap/OSRM · Updated ${esc(v.trip.generated_at?.slice(0, 10) || "")}</p>`;
     $("#content").querySelectorAll(".tab").forEach(t => t.addEventListener("click", () => selectDay(+t.dataset.day)));
     renderDays();
+    loadMine().then(() => { document.querySelectorAll(".mine").forEach(b => { b.outerHTML = mineHTML(b.dataset.key); }); wireMine(); });
   }
 
   function selectDay(i) {
@@ -71,6 +73,7 @@
     const list = dayIdx === -1 ? view.days.map((d, i) => [d, i]) : [[view.days[dayIdx], dayIdx]];
     $("#days").innerHTML = list.map(([d, i]) => dayHTML(d, i)).join("");
     wire();
+    wireMine();
     reveal();
     drawMap();
   }
@@ -127,9 +130,61 @@
             <a class="link" href="${esc(dir)}" target="_blank" rel="noopener">Directions ${chev}</a>
             <a class="link" href="${esc(p.maps_url || "#")}" target="_blank" rel="noopener">Google Maps ${chev}</a>
           </div>
+          ${mineHTML(key)}
         </div>
       </article>
     </li>`;
+  }
+
+  /* "Your photos" on each card: what you've added for this stop + an upload button.
+     Uploads carry the stop key, so they land on this place in the album without EXIF matching. */
+  function mineHTML(key) {
+    if (OFFLINE) return "";
+    const ps = mine[key] || [];
+    const shown = ps.slice(0, 5).map(p => `<img src="${esc(p.src)}" alt="" loading="lazy">`).join("");
+    return `<div class="mine" data-key="${key}">
+      <div class="mine-head"><span class="eyebrow">Your photos</span><span class="mine-count">${ps.length ? `${ps.length} in the album` : "None yet"}</span></div>
+      ${ps.length ? `<div class="mine-strip">${shown}${ps.length > 5 ? `<span class="more">+${ps.length - 5}</span>` : ""}</div>` : ""}
+      <div class="mine-actions">
+        <label class="btn btn-upload">Add photos<input type="file" accept="image/*" multiple hidden data-key="${key}"></label>
+        ${ps.length ? `<a class="link" href="album.html?trip=${encodeURIComponent(slug())}">Open album ${chev}</a>` : ""}
+      </div>
+    </div>`;
+  }
+
+  async function loadMine() {
+    if (OFFLINE) return;
+    try {
+      const r = await fetch(`api/trips/${encodeURIComponent(slug())}/album`);
+      if (!r.ok) return;
+      const { album } = await r.json();
+      mine = {};
+      album.photos.forEach(p => { if (p.stop_key) (mine[p.stop_key] ||= []).push(p); });
+    } catch { /* album is optional on this page */ }
+  }
+
+  async function uploadTo(key, files, input) {
+    if (!files?.length) return;
+    const box = input.closest(".mine"), label = input.parentElement, code = localStorage.getItem("fh_code");
+    const fd = new FormData(); [...files].forEach(f => fd.append("files", f)); fd.append("stop_key", key);
+    label.classList.add("busy"); label.firstChild.textContent = "Uploading…";
+    const r = await fetch(`api/trips/${encodeURIComponent(slug())}/photos`, { method: "POST", body: fd,
+      headers: code ? { Authorization: `Bearer ${code}` } : {} });
+    if (!r.ok) {
+      label.classList.remove("busy"); label.firstChild.textContent = "Add photos";
+      box.querySelector(".mine-count").textContent = r.status === 401 ? "Needs the access code (Plan a trip → code)" : `Upload failed (${r.status})`;
+      return;
+    }
+    await loadMine();
+    box.outerHTML = mineHTML(key);
+    wireMine();
+  }
+
+  function wireMine() {
+    document.querySelectorAll(".mine input[type=file]:not(.wired)").forEach(inp => {
+      inp.classList.add("wired");
+      inp.addEventListener("change", e => uploadTo(inp.dataset.key, e.target.files, inp));
+    });
   }
 
   /* Crowd chart: one series (busy level 0–100 by hour), so no legend — the heading names it.
@@ -295,8 +350,8 @@
     else if (ev.type === "text") log("text", esc(ev.text));
     else if (ev.type === "trip" && ev.view) {
       log("ok", `Route ready — <b>${esc(ev.view.trip.title)}</b>`);
-      dayIdx = 0; render(ev.view);
       history.replaceState(null, "", `?trip=${encodeURIComponent(ev.slug)}`);
+      dayIdx = 0; render(ev.view);
       addPick(ev.slug, ev.view.trip.title, true);
     } else if (ev.type === "error") log("err", esc(ev.error));
     else if (ev.type === "done") log("ok", `Done${ev.usage?.output ? ` · ${ev.usage.output.toLocaleString()} output tokens` : ""}`);
@@ -310,12 +365,14 @@
     p.hidden = p.options.length < 2;
   }
   $("#tripPicker").addEventListener("change", async e => {
-    dayIdx = 0; render(await (await fetch(`api/trips/${encodeURIComponent(e.target.value)}`)).json());
     history.replaceState(null, "", `?trip=${encodeURIComponent(e.target.value)}`);
+    dayIdx = 0; render(await (await fetch(`api/trips/${encodeURIComponent(e.target.value)}`)).json());
   });
 
   async function boot() {
-    if (new URLSearchParams(location.search).get("plan")) setTimeout(() => openDrawer(true), 300);
+    const qs = new URLSearchParams(location.search);
+    if (qs.get("q")) $("#prompt").value = `${qs.get("q")}, 2 days. Must try: `;
+    if (qs.get("plan")) setTimeout(() => openDrawer(true), 300);
     if (window.__TRIP__) { $("#openAgent").hidden = true; render(window.__TRIP__); return; }
     try {
       health = await (await fetch("api/health")).json();

@@ -13,7 +13,7 @@ route**, then turns your trip photos into an **album** with "Proust symbols".
 uv sync
 uv run foodhunt plan trips/hatyai.yaml          # gather + plan → data/hatyai/view.json, output/*.html|.notion.md
 uv run uvicorn app:app --port 8000              # website: route + album + agent + remote MCP
-uv run pytest -q                                # 27 tests, offline, no API key needed
+uv run pytest -q                                # 29 tests, offline, no API key needed
 ```
 
 Pages: <http://localhost:8000> (all trips) · `/trip.html?trip=hatyai` (route) · `/album.html?trip=hatyai` (album) ·

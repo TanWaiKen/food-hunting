@@ -71,3 +71,13 @@ body.home { display: block; }
 .step-no { font-size: 56px; }
 .footer-band { background: var(--ink); color: var(--bg); text-transform: uppercase; letter-spacing: .1em; font-size: 11px; }
 @media (max-width: 600px) { .hero-title { line-height: .95; } }
+
+/* search */
+.search { margin-top: 26px; max-width: 640px; display: grid; gap: 8px; }
+.search-row { display: flex; gap: 0; }
+.search input { flex: 1; min-width: 0; font: 500 18px/1.2 var(--sans); padding: 13px 14px; border: 2px solid var(--ink); border-right: 0;
+  border-radius: 0; background: var(--surface); color: var(--ink); appearance: none; }
+.search input::placeholder { color: var(--muted); }
+.search input:focus { outline: none; box-shadow: inset 0 -4px 0 var(--brand); }
+.search .btn { font: 700 12px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; padding: 0 20px; }
+.search-note { margin: 0; min-height: 1.2em; font: 600 11px/1.2 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }

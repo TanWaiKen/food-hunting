@@ -16,7 +16,7 @@ import hmac
 import json
 import os
 
-from fastapi import Depends, FastAPI, File, Header, HTTPException, UploadFile
+from fastapi import Depends, FastAPI, File, Form, Header, HTTPException, UploadFile
 from fastapi.responses import FileResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from mcp.server.transport_security import TransportSecuritySettings
@@ -115,7 +115,10 @@ def list_trips():
                     "stops": len(stops), "first_day": v["days"][0]["date"] if v["days"] else None,
                     "last_day": v["days"][-1]["date"] if v["days"] else None,
                     "walk_m": sum(d.get("walk_m", 0) for d in v["days"]),
-                    "photos": len(album), "cover": cover, "symbols": symbols})
+                    "photos": len(album), "cover": cover, "symbols": symbols,
+                    # for the home-page search: places and what to order there
+                    "places": [st["place"]["display"] for st in stops],
+                    "dishes": [st["place"]["order"] for st in stops if st["place"].get("order")]})
     return out
 
 
@@ -167,15 +170,19 @@ def get_album(slug: str):
 
 
 @app.post("/api/trips/{slug}/photos", dependencies=[Depends(require_token)])
-async def upload_photos(slug: str, files: list[UploadFile] = File(...)):
+async def upload_photos(slug: str, files: list[UploadFile] = File(...), stop_key: str | None = Form(None)):
+    """Upload photos. With stop_key (from a restaurant card) they go straight to that stop;
+    without it they're matched by EXIF GPS/time."""
     view = _view(slug)
+    if stop_key and stop_key not in {s["key"] for s in photos.stop_index(view)}:
+        raise HTTPException(400, "Unknown stop")
     added = []
     for f in files[:40]:
         data = await f.read()
         if len(data) > 25_000_000:
             raise HTTPException(413, f"{f.filename} is over 25 MB")
         try:
-            added.append(photos.add_photo(slug, view, data, f.filename or ""))
+            added.append(photos.add_photo(slug, view, data, f.filename or "", stop_key=stop_key or None))
         except Exception as e:  # noqa: BLE001 — a non-image shouldn't kill the batch
             added.append({"file": f.filename, "error": str(e)[:200]})
     return {"added": added}
