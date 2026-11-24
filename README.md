@@ -166,7 +166,7 @@ Without a Blob store, the site still runs, but uploads and new trips live in `/t
 
 | Path | What |
 |---|---|
-| `app.py`, `vercel.json`, `.python-version`, `.vercelignore` | Vercel entry (FastAPI), 300 s function limit, Python 3.14, files kept out of the upload |
+| `app.py`, `vercel.json`, `.python-version`, `.vercelignore` | Vercel entry (FastAPI), function in Singapore (`sin1`, next to the Blob store) with a 300 s limit, Python 3.14, files kept out of the upload |
 | `pyproject.toml`, `uv.lock` | Dependencies (uv) |
 | `.mcp.json` | Local MCP servers for Claude Code (`foodhunt`, optional `xiaohongshu`) |
 | `.claude/commands/food-hunt.md`, `.claude/skills/travel-photo-abstraction/` | The `/food-hunt` workflow and the photo-symbol skill for Claude Code |
@@ -208,8 +208,8 @@ uv run pytest -q                           # 30 tests, offline, no keys needed
 npx vercel@latest deploy --prod
 ```
 
-**Connect Blob (once):** Vercel dashboard → *Storage* → *Create* → *Blob* → choose **Public**,
-connect it to the `food-hunting` project → redeploy.
+**Blob store:** `food-hunting-media` (public, Singapore), already connected to the project. To make one again:
+`npx vercel@latest blob create-store <name> --access public --region sin1 --yes`, then redeploy.
 
 **Remote MCP for other clients:** URL `https://food-hunting.vercel.app/mcp/`, header
 `Authorization: Bearer <FOODHUNT_ACCESS_TOKEN>`.
