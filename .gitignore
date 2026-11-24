@@ -10,3 +10,6 @@ data/*/photos/
 __pycache__/
 *.pyc
 .claude/settings.local.json
+
+.vercel
+.env*
