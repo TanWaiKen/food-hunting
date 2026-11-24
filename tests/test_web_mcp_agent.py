@@ -113,3 +113,14 @@ def test_agent_reports_missing_key(monkeypatch):
     fake = types.SimpleNamespace(beta=types.SimpleNamespace(messages=types.SimpleNamespace(tool_runner=boom)))
     events = list(agent.run("x", client=fake))
     assert any(e["type"] == "error" and "ANTHROPIC_API_KEY" in e["error"] for e in events)
+
+
+def test_place_images_served_by_app(client):
+    """Restaurant images work even when the CDN doesn't have public/img; no path tricks."""
+    from foodhunt.config import PUBLIC_DIR
+    imgs = sorted((PUBLIC_DIR / "img").glob("*.jpg"))
+    if imgs:
+        r = client.get(f"/img/{imgs[0].name}")
+        assert r.status_code == 200 and r.headers["content-type"] == "image/jpeg"
+    assert client.get("/img/..%2F..%2Fpyproject.toml").status_code == 404
+    assert client.get("/img/nope.jpg").status_code == 404

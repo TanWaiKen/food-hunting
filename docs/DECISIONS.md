@@ -179,3 +179,8 @@ Format: **Step / Decision** → Why → How → Result. Newest at the bottom. Do
 - **Why:** On Vercel, uploads and new trips were saved in `/tmp`, which is wiped on every cold start. You asked for free storage.
 - **How:** New `foodhunt/store.py` is the only place that writes trips, albums and photos. It uses the local `data/` folder on your PC and Vercel Blob when a store is connected (`BLOB_READ_WRITE_TOKEN`). Reads fall back to the files bundled with the deploy, so Hat Yai works with an empty store. JSON is read with the blob's ETag so writes show immediately. Photos redirect to the Blob CDN. Blob Hobby is free: 1 GB, 10k reads, 2k writes/month, and it stops rather than bills when over.
 - **Result:** 30 tests pass (one fakes Blob end to end). Locally `/api/health` reports `"storage": "local-disk"`. README rewritten as an infrastructure and code-review map.
+
+### D31. The app serves restaurant images when the CDN misses them
+- **Why:** After the Blob redeploy, all 17 restaurant images (`public/img`, kept off GitHub) returned 404 on the live site. You noticed it on Jok Songkhla.
+- **How:** New `GET /img/{name}` in `web.py`. When Vercel's page CDN doesn't have the file, the request reaches the app, which sends it from the deploy bundle (filename only, image types only, cached for a year).
+- **Result:** All 17 return 200 live; Jok Songkhla's photo shows on Day 2. 31 tests pass (including a path-trick check).

@@ -184,6 +184,16 @@ async def upload_photos(slug: str, files: list[UploadFile] = File(...), stop_key
     return {"added": added}
 
 
+@app.get("/img/{name}", include_in_schema=False)
+def place_image(name: str):
+    """Restaurant images (public/img, kept off GitHub). Vercel's page CDN doesn't always carry this
+    folder, so when it misses, the request lands here and is served from the function bundle."""
+    f = PUBLIC_DIR / "img" / os.path.basename(name)
+    if f.suffix.lower() not in {".jpg", ".jpeg", ".png", ".webp"} or not f.is_file():
+        raise HTTPException(404)
+    return FileResponse(f, headers={"Cache-Control": "public, max-age=31536000, s-maxage=31536000, immutable"})
+
+
 @app.get("/api/trips/{slug}/photos/{pid}.jpg")
 def photo_file(slug: str, pid: str):
     key = photos.photo_key(pipeline.slugify(slug), pipeline.slugify(pid))
