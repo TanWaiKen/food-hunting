@@ -16,7 +16,7 @@ uv run uvicorn app:app --port 8000              # website: route + album + agent
 uv run pytest -q                                # 29 tests, offline, no API key needed
 ```
 
-Pages: <http://localhost:8000> (all trips) · `/trip.html?trip=hatyai` (route) · `/album.html?trip=hatyai` (album) ·
+Live: <https://food-hunting.vercel.app> · Pages: <http://localhost:8000> (all trips) · `/trip.html?trip=hatyai` (route) · `/album.html?trip=hatyai` (album) ·
 `/lab.html` (design lab: three directions to compare). All times are shown in **Kuala Lumpur time (MYT)**;
 set `timezone:` in the trip file (e.g. `Asia/Bangkok`) and local time appears underneath.
 

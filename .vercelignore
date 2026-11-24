@@ -7,3 +7,7 @@ docs
 *.pyc
 .pytest_cache
 __pycache__
+.env
+.env.*
+!.env.example
+.vercel
