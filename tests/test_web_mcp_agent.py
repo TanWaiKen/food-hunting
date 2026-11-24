@@ -79,7 +79,7 @@ def _msg(content, stop):
 
 
 def test_agent_streams_tool_events_and_trip(monkeypatch, tmp_path):
-    monkeypatch.setattr(config, "DATA_DIR", tmp_path)
+    monkeypatch.setattr("foodhunt.store.DATA_DIR", tmp_path)
     monkeypatch.setattr("foodhunt.pipeline.DATA_DIR", tmp_path)
     monkeypatch.setattr("foodhunt.pipeline.OUTPUT_DIR", tmp_path / "out")
     monkeypatch.setattr("foodhunt.geo.route_leg", lambda a, b, mode="walking": {

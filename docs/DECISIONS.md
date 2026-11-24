@@ -174,3 +174,8 @@ Format: **Step / Decision** → Why → How → Result. Newest at the bottom. Do
 - **Why:** You want every suggested restaurant to have its own place for photos that then become the album. You also want the site to work for any trip, not just Hat Yai, so you can search.
 - **How:** Each route card has a "Your photos" strip with an **Add photos** button. The upload sends that stop's key, so the photo is filed under that restaurant without needing GPS/EXIF. On the home page, a search box matches trip title, city, place names and dishes (case and accents ignored). If nothing matches, it offers "Plan <city>?", which opens the planner already filled in.
 - **Result:** Tested: "pork" finds Hatyai, "Penang" offers a new plan. Cards show the photos already filed there. 29 tests pass, including uploading to a set stop and rejecting an unknown stop.
+
+### D30. Vercel Blob for permanent photos, albums and trips
+- **Why:** On Vercel, uploads and new trips were saved in `/tmp`, which is wiped on every cold start. You asked for free storage.
+- **How:** New `foodhunt/store.py` is the only place that writes trips, albums and photos. It uses the local `data/` folder on your PC and Vercel Blob when a store is connected (`BLOB_READ_WRITE_TOKEN`). Reads fall back to the files bundled with the deploy, so Hat Yai works with an empty store. JSON is read with the blob's ETag so writes show immediately. Photos redirect to the Blob CDN. Blob Hobby is free: 1 GB, 10k reads, 2k writes/month, and it stops rather than bills when over.
+- **Result:** 30 tests pass (one fakes Blob end to end). Locally `/api/health` reports `"storage": "local-disk"`. README rewritten as an infrastructure and code-review map.

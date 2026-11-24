@@ -14,6 +14,7 @@ from pathlib import Path
 import yaml
 
 from . import crowd, geo, places, render, route
+from . import store
 from .config import DATA_DIR, OUTPUT_DIR
 
 
@@ -84,8 +85,7 @@ def build(trip: dict, slug: str, refresh: bool = False, offline: bool = False, w
         place_source="google_places" if geo.has_google() else "openstreetmap",
     )
     if write:
-        (DATA_DIR / slug).mkdir(parents=True, exist_ok=True)
-        (DATA_DIR / slug / "view.json").write_text(json.dumps(view, ensure_ascii=False), encoding="utf-8")
+        store.save_trip(slug, view)                     # data/<slug>/view.json, or Vercel Blob
         OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
         (OUTPUT_DIR / f"{slug}.notion.md").write_text(render.notion_md(trip, days, leftover, no_loc), encoding="utf-8")
         (OUTPUT_DIR / f"{slug}.html").write_text(render.export_html(view), encoding="utf-8")

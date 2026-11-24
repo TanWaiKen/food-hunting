@@ -302,6 +302,7 @@ dependencies = [
     { name = "pyyaml" },
     { name = "tzdata" },
     { name = "uvicorn" },
+    { name = "vercel-blob" },
 ]
 
 [package.dev-dependencies]
@@ -322,6 +323,7 @@ requires-dist = [
     { name = "pyyaml", specifier = ">=6.0.4" },
     { name = "tzdata", specifier = ">=2026.6" },
     { name = "uvicorn", specifier = ">=0.54.0" },
+    { name = "vercel-blob", specifier = ">=0.5" },
 ]
 
 [package.metadata.requires-dev]
@@ -1389,4 +1391,56 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/da/34/30e9280707135d2cfc589dfff3cb796bd07a3aeb1a3e415ba09dd89d7bb4/uvicorn-0.54.0.tar.gz", hash = "sha256:a2e33cbfaa0306f8e6b0c13e0cb89d7d7a2da3e62b90c66e18c33d9807b28620", size = 112283, upload-time = "2026-09-25T06:52:37.601Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/38/0c/b54a4fdd7f90a3af8b02ebc9ce6712c2c208b7926a2f7bad95c33ebbe943/uvicorn-0.54.0-py3-none-any.whl", hash = "sha256:505bdb0f318731d45f1f712071fc781a8981f6847a31c902c9f5e652d4f67faf", size = 87427, upload-time = "2026-09-25T06:52:35.829Z" },
+]
+
+[[package]]
+name = "vercel-blob"
+version = "0.6.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "anyio" },
+    { name = "httpx2" },
+    { name = "pydantic" },
+    { name = "vercel-internal-core" },
+    { name = "vercel-oidc" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/9d/b0/eecdcba70a39e7148161a8b684c096d2c5202da4a4285a5c2aea9f5b8697/vercel_blob-0.6.2.tar.gz", hash = "sha256:9a999ec1e22817ade4ccca3b296af192f35cac09fc703cdc0c5bc010e5a2fbeb", size = 31879, upload-time = "2026-11-21T00:35:35.214Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/e0/49/bcd7f888883423daa1dbd431d5502651a756d82ba8fdb29579849424670a/vercel_blob-0.6.2-py3-none-any.whl", hash = "sha256:8fe1768ac34d9e4854a0e7241b23061048bd5d1b382d59a7b4a747f5c2803fa3", size = 36158, upload-time = "2026-11-21T00:35:34.409Z" },
+]
+
+[[package]]
+name = "vercel-headers"
+version = "0.8.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/29/94/016d2de42b653d7100d6de68f4711402660ba439d553a308d3c8e553f7ef/vercel_headers-0.8.0.tar.gz", hash = "sha256:6cf3aa1cb34772c3c708db80dba86127dfffb683158459ea1ec193c3edd2d9c1", size = 6091, upload-time = "2026-11-13T19:10:04.117Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/81/63/129feb85d027ba780ba5ac65ee0e74dda5953f27cd4adc94ec18b3d34052/vercel_headers-0.8.0-py3-none-any.whl", hash = "sha256:b565d966a4aff1a85410eed5f47e1edfa4c83a6d6b1870477d43bd78d16f16d5", size = 3920, upload-time = "2026-11-13T19:10:03.17Z" },
+]
+
+[[package]]
+name = "vercel-internal-core"
+version = "0.3.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "anyio" },
+    { name = "httpx2" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/17/f1/b7944c07f9d348d7827c98fe6c4c200c65c610cc94f659052a3f6096a448/vercel_internal_core-0.3.2.tar.gz", hash = "sha256:767c4e4c6463980508cef37ce737392e0a0e3b4596430e4dd18aff07a76d5cdb", size = 21075, upload-time = "2026-11-21T00:35:30.467Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/c6/60/0ab6eb9e4a58910797ae1ead72c435040e9ac9e6b5b136e9c9c03a44bfb0/vercel_internal_core-0.3.2-py3-none-any.whl", hash = "sha256:39afe41d26524aba2805e53e4f13a5bcd4b1880060d17d94cf2f635a840a4223", size = 25421, upload-time = "2026-11-21T00:35:29.732Z" },
+]
+
+[[package]]
+name = "vercel-oidc"
+version = "0.12.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "anyio" },
+    { name = "httpx2" },
+    { name = "vercel-headers" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/3b/3d/34c4b523533d66c3eba95c9901d9b8634b62106093953d35acd727bef768/vercel_oidc-0.12.0.tar.gz", hash = "sha256:cf0437dd010acc147c8a8572cd22590d579eeec9d335e0717fcf32e377e900b7", size = 17064, upload-time = "2026-11-13T19:10:15.64Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/98/51/4771578d47e97ac1ef67b8e592fbb1cad615482571c75a7dbe48536a83b9/vercel_oidc-0.12.0-py3-none-any.whl", hash = "sha256:727e0af59f988b96964a1d5fcbde314b6ef8c139aa976113917f478e6033e660", size = 17044, upload-time = "2026-11-13T19:10:14.709Z" },
 ]

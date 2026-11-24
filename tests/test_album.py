@@ -5,7 +5,7 @@ import types
 import pytest
 from PIL import Image
 
-from foodhunt import abstract, config, photos, web
+from foodhunt import abstract, config, photos, store, web
 
 VIEW = {
     "trip": {"title": "T", "city": "Hat Yai", "start": {"name": "H", "lat": 7.0058, "lng": 100.4717}},
@@ -36,7 +36,7 @@ def jpeg(color=(200, 120, 40), gps=None, when=None) -> bytes:
 
 @pytest.fixture()
 def tmpdata(monkeypatch, tmp_path):
-    monkeypatch.setattr(photos, "DATA_DIR", tmp_path)
+    monkeypatch.setattr(store, "DATA_DIR", tmp_path)
     return tmp_path
 
 
@@ -116,3 +116,28 @@ def test_upload_to_a_specific_stop(client, tmpdata, monkeypatch):
 def test_trip_list_is_searchable(client):
     t = client.get("/api/trips").json()[0]
     assert t["places"] and any("pork" in d.lower() for d in t["dishes"])
+
+
+def test_blob_backend_round_trip(monkeypatch, tmp_path):
+    """With a Blob token, writes go to Blob and reads come back fresh; bundled files still show."""
+    blobs: dict[str, bytes] = {}
+
+    class NotFound(Exception): ...
+
+    fake = types.SimpleNamespace(
+        BlobNotFoundError=NotFound,
+        put_blob=lambda key, data, **kw: (blobs.__setitem__(key, bytes(data)), types.SimpleNamespace(url=f"https://cdn/{key}"))[1],
+        head_blob=lambda key: types.SimpleNamespace(url=f"https://cdn/{key}", etag='"e1"') if key in blobs else (_ for _ in ()).throw(NotFound()),
+    )
+    monkeypatch.setenv("BLOB_READ_WRITE_TOKEN", "test")
+    monkeypatch.setattr(store, "_blob", lambda: fake)
+    monkeypatch.setattr(store.httpx, "get", lambda url, **kw: types.SimpleNamespace(
+        content=blobs[url.removeprefix("https://cdn/")], raise_for_status=lambda: None))
+    assert store.backend() == "vercel-blob"
+    assert "hatyai" in store.trip_slugs()                       # bundled trip without any Blob data
+    assert len(photos.load_album("hatyai")["photos"]) >= 1      # bundled album as the starting point
+    store.save_trip("newcity", {"days": []})
+    assert store.trip_slugs() >= {"hatyai", "newcity"} and store.load_trip("newcity") == {"days": []}
+    p = photos.add_photo("newcity", VIEW, jpeg(), "a.jpg", stop_key="0-0")
+    assert store.locate(photos.photo_key("newcity", p["id"])) == ("url", f"https://cdn/newcity/photos/{p['id']}.jpg")
+    assert photos.load_album("newcity")["photos"][0]["id"] == p["id"]

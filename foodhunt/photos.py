@@ -4,8 +4,7 @@ Matching order (first that works wins, and is recorded so the UI can show *why*)
   1. GPS  — nearest routed stop within 250 m of where the photo was taken
   2. time — taken on a trip day between (arrive − 30 min) and (leave + 60 min) of a stop
   3. none — "unsorted"; the user drags it onto a place (PATCH)
-Storage: <DATA_DIR>/<slug>/photos/*.jpg + album.json. Locally that is the project folder;
-on Vercel /tmp is NOT permanent — use Vercel Blob for albums there (see README).
+Storage goes through store.py: local data/ folder on your PC, Vercel Blob when connected.
 """
 from __future__ import annotations
 
@@ -15,36 +14,19 @@ import json
 import uuid
 from pathlib import Path
 
-import shutil
-
-from . import geo
-from .config import BUNDLED_DATA, DATA_DIR
+from . import geo, store
 
 MAX_PX = 1600
 GPS_RADIUS_M = 250
 
 
-def album_dir(slug: str) -> Path:
-    """Writable album folder. On Vercel (DATA_DIR=/tmp) the first access copies the album that
-    shipped with the deployment, so bundled albums show up and new uploads can be added on top."""
-    d = DATA_DIR / slug
-    src = BUNDLED_DATA / slug
-    if d != src and not (d / "album.json").exists() and (src / "album.json").exists():
-        d.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(src / "album.json", d / "album.json")
-        if (src / "photos").exists():
-            shutil.copytree(src / "photos", d / "photos", dirs_exist_ok=True)
-    return d
-
-
 def load_album(slug: str) -> dict:
-    f = album_dir(slug) / "album.json"
-    return json.loads(f.read_text(encoding="utf-8")) if f.exists() else {"photos": []}
+    """album.json — written copy if there is one, else the one bundled with the deploy, else empty."""
+    return store.read_json(f"{slug}/album.json") or {"photos": []}
 
 
 def save_album(slug: str, album: dict) -> None:
-    album_dir(slug).mkdir(parents=True, exist_ok=True)
-    (album_dir(slug) / "album.json").write_text(json.dumps(album, ensure_ascii=False, indent=1), encoding="utf-8")
+    store.write_json(f"{slug}/album.json", album)
 
 
 # ---------------- EXIF ----------------
@@ -135,11 +117,9 @@ def add_photo(slug: str, view: dict, data: bytes, filename: str = "", stop_key: 
     im = ImageOps.exif_transpose(im).convert("RGB")
     im.thumbnail((MAX_PX, MAX_PX))
     pid = uuid.uuid4().hex[:12]
-    folder = album_dir(slug) / "photos"
-    folder.mkdir(parents=True, exist_ok=True)
     buf = io.BytesIO()
     im.save(buf, "JPEG", quality=84, optimize=True, progressive=True)
-    (folder / f"{pid}.jpg").write_bytes(buf.getvalue())
+    store.write_bytes(photo_key(slug, pid), buf.getvalue(), "image/jpeg")
 
     m = {"stop_key": stop_key, "by": "manual"} if stop_key else match(meta, stop_index(view))
     from .abstract import palette
@@ -162,8 +142,8 @@ def update_photo(slug: str, pid: str, **changes) -> dict:
     raise KeyError(pid)
 
 
-def photo_path(slug: str, pid: str) -> Path:
-    return album_dir(slug) / "photos" / f"{pid}.jpg"
+def photo_key(slug: str, pid: str) -> str:
+    return f"{slug}/photos/{pid}.jpg"
 
 
 def seed_from_trip(slug: str, trip: dict, view: dict, img_dir: Path) -> int:

@@ -13,8 +13,8 @@ BUNDLED_DATA = ROOT / "data"
 PUBLIC_DIR = ROOT / "public"
 TRIPS_DIR = ROOT / "trips"
 
-# Writable data (cache, generated trips). /tmp on Vercel — it does not persist between
-# cold starts, which is fine for caches; publish to Notion (or add Vercel Blob) to keep trips.
+# Writable local data: the place-lookup cache, and trips/albums when no Blob store is connected
+# (see store.py). /tmp on Vercel — wiped between cold starts, so connect Vercel Blob there.
 DATA_DIR = Path(os.getenv("FOODHUNT_DATA_DIR") or ("/tmp/foodhunt/data" if ON_VERCEL else BUNDLED_DATA))
 OUTPUT_DIR = Path(os.getenv("FOODHUNT_OUTPUT_DIR") or ("/tmp/foodhunt/output" if ON_VERCEL else ROOT / "output"))
 
@@ -25,10 +25,3 @@ AGENT_EFFORT = os.getenv("FOODHUNT_EFFORT", "high")
 # Shared secrets that protect the paid endpoints on a public deployment. Unset = open (local dev).
 ACCESS_TOKEN = os.getenv("FOODHUNT_ACCESS_TOKEN") or None   # /api/agent and /mcp
 
-
-def find_trip_file(slug: str) -> Path | None:
-    for d in (DATA_DIR, BUNDLED_DATA):
-        f = d / slug / "view.json"
-        if f.exists():
-            return f
-    return None

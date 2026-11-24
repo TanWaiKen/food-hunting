@@ -17,14 +17,14 @@ import json
 import os
 
 from fastapi import Depends, FastAPI, File, Form, Header, HTTPException, UploadFile
-from fastapi.responses import FileResponse, StreamingResponse
+from fastapi.responses import FileResponse, RedirectResponse, Response, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from mcp.server.transport_security import TransportSecuritySettings
 from pydantic import BaseModel, Field
 from starlette.types import ASGIApp, Receive, Scope, Send
 
-from . import abstract, agent, crowd, geo, photos, pipeline
-from .config import ACCESS_TOKEN, AGENT_MODEL, BUNDLED_DATA, DATA_DIR, ON_VERCEL, PUBLIC_DIR, find_trip_file
+from . import abstract, agent, crowd, geo, photos, pipeline, store
+from .config import ACCESS_TOKEN, AGENT_MODEL, ON_VERCEL, PUBLIC_DIR
 from .server import make_server
 from .tools import TripSpec
 
@@ -89,18 +89,17 @@ def health():
         "access_code_required": bool(ACCESS_TOKEN),
         "google_places": geo.has_google(),
         "besttime": crowd.has_besttime(),
+        "storage": store.backend(),
     }
 
 
 @app.get("/api/trips")
 def list_trips():
-    slugs = set()
-    for d in (BUNDLED_DATA, DATA_DIR):
-        if d.exists():
-            slugs |= {p.parent.name for p in d.glob("*/view.json")}
     out = []
-    for s in sorted(slugs):
-        v = json.loads(find_trip_file(s).read_text(encoding="utf-8"))
+    for s in sorted(store.trip_slugs()):
+        v = store.load_trip(s)
+        if not v:
+            continue
         stops = [st for d in v["days"] for st in d["stops"]]
         album = photos.load_album(s)["photos"]
         arrive = {f"{i}-{j}": st["arrive"] for i, d in enumerate(v["days"]) for j, st in enumerate(d["stops"])}
@@ -124,10 +123,7 @@ def list_trips():
 
 @app.get("/api/trips/{slug}")
 def get_trip(slug: str):
-    f = find_trip_file(pipeline.slugify(slug))
-    if not f:
-        raise HTTPException(404, "Trip not found")
-    return json.loads(f.read_text(encoding="utf-8"))
+    return _view(pipeline.slugify(slug))
 
 
 class AgentRequest(BaseModel):
@@ -153,10 +149,10 @@ def plan(spec: TripSpec):
 # ---------------- album ----------------
 
 def _view(slug: str) -> dict:
-    f = find_trip_file(slug)
-    if not f:
+    v = store.load_trip(slug)
+    if not v:
         raise HTTPException(404, "Trip not found")
-    return json.loads(f.read_text(encoding="utf-8"))
+    return v
 
 
 @app.get("/api/trips/{slug}/album")
@@ -190,10 +186,17 @@ async def upload_photos(slug: str, files: list[UploadFile] = File(...), stop_key
 
 @app.get("/api/trips/{slug}/photos/{pid}.jpg")
 def photo_file(slug: str, pid: str):
-    f = photos.photo_path(pipeline.slugify(slug), pipeline.slugify(pid))
-    if not f.exists():
+    key = photos.photo_key(pipeline.slugify(slug), pipeline.slugify(pid))
+    where = store.locate(key)
+    if not where:
         raise HTTPException(404)
-    return FileResponse(f, media_type="image/jpeg", headers={"Cache-Control": "public, max-age=31536000, immutable"})
+    kind, loc = where
+    if kind == "url":                       # public Blob → let its CDN serve the bytes
+        return RedirectResponse(loc, status_code=307, headers={"Cache-Control": "public, max-age=86400, s-maxage=86400"})
+    cache = {"Cache-Control": "public, max-age=31536000, s-maxage=31536000, immutable"}
+    if kind == "path":
+        return FileResponse(loc, media_type="image/jpeg", headers=cache)
+    return Response(store.read_bytes(key), media_type="image/jpeg", headers=cache)  # private Blob
 
 
 class PhotoPatch(BaseModel):
@@ -217,14 +220,14 @@ def patch_photo(slug: str, pid: str, body: PhotoPatch):
 
 @app.post("/api/trips/{slug}/photos/{pid}/abstract", dependencies=[Depends(require_token)])
 def abstract_photo(slug: str, pid: str):
-    f = photos.photo_path(slug, pid)
-    if not f.exists():
+    data = store.read_bytes(photos.photo_key(slug, pid))
+    if data is None:
         raise HTTPException(404, "Photo not found")
     p = next(x for x in photos.load_album(slug)["photos"] if x["id"] == pid)
     stop = next((s for s in photos.stop_index(_view(slug)) if s["key"] == p.get("stop_key")), None)
     ctx = f"Taken at {stop['name']}" + (f", around {stop['arrive']}" if stop and stop.get("arrive") else "") if stop else ""
     try:
-        spec = abstract.extract_spec(f.read_bytes(), context=ctx)
+        spec = abstract.extract_spec(data, context=ctx)
     except Exception as e:  # noqa: BLE001
         raise HTTPException(502, f"Abstraction failed: {e}") from e
     p = photos.update_photo(slug, pid, symbol=spec.model_dump())
