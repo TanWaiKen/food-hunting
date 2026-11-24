@@ -138,3 +138,34 @@ def save_trip(slug: str, view: dict) -> None:
 
 def load_trip(slug: str) -> dict | None:
     return read_json(f"{slug}/view.json")
+
+
+# ---------------- media sync (PC → Blob) ----------------
+
+def push_media(public_img: Path, data_dir: Path) -> dict:
+    """Copy photos that only live on this PC (they're kept off GitHub) into Blob:
+    public/img/*.jpg → "img/<name>", data/<slug>/photos/*.jpg → "<slug>/photos/<name>".
+    Skips files already in Blob, so it is safe to run again after adding photos."""
+    if not on_blob():
+        raise SystemExit("Set BLOB_READ_WRITE_TOKEN first (it's in .env.local after `vercel env pull`).")
+    files = [(f"img/{f.name}", f) for f in sorted(public_img.glob("*.jpg"))]
+    files += [(f"{f.parent.parent.name}/photos/{f.name}", f) for f in sorted(data_dir.glob("*/photos/*.jpg"))]
+    done = {"uploaded": 0, "skipped": 0}
+    for key, f in files:
+        where = locate(key)
+        if where and where[0] == "url":
+            done["skipped"] += 1
+            continue
+        write_bytes(key, f.read_bytes(), "image/jpeg")
+        done["uploaded"] += 1
+    return done
+
+
+if __name__ == "__main__":  # uv run python -m foodhunt.store push-media
+    import sys
+
+    from .config import PUBLIC_DIR
+    if sys.argv[1:] == ["push-media"]:
+        print(push_media(PUBLIC_DIR / "img", BUNDLED_DATA))
+    else:
+        print("usage: python -m foodhunt.store push-media")

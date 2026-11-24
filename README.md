@@ -114,7 +114,8 @@ sequenceDiagram
 
 - **On your PC:** files go in `data/<slug>/…`.
 - **On Vercel with Blob connected:** the same keys go in your Blob store. This is detected from `BLOB_READ_WRITE_TOKEN`, which Vercel adds automatically.
-- **Read fallback:** reads fall back to files **bundled with the deploy** (`data/` uploaded from your PC). So the Hat Yai trip and its 17 photos show even with an empty Blob store. The first new upload copies the album list into Blob.
+- **Read fallback:** reads fall back to the files **bundled with the deploy** (the committed `view.json` / `album.json`), so the Hat Yai trip works even with an empty Blob store. The first new upload copies the album list into Blob.
+- **Photos:** Vercel does not ship `public/img` or `data/*/photos` to the Python function. Those photos live in Blob (`img/<name>`, `<slug>/photos/<id>.jpg`), pushed with `push-media`; `/img/<name>` redirects there.
 - **Fresh reads:** JSON is read with the blob's current ETag on the URL, so a write is visible immediately rather than after the CDN's ~60 s.
 - **Cache:** `places.json` (the place-lookup cache) stays on local disk/`/tmp`. It's only a cache.
 
@@ -203,9 +204,17 @@ uv run uvicorn app:app --port 8000         # the website locally (http://localho
 uv run pytest -q                           # 30 tests, offline, no keys needed
 ```
 
-**Deploy from this PC** so your photos in `data/` go with it (they aren't on GitHub):
+**Deploy:**
 ```powershell
 npx vercel@latest deploy --prod
+```
+**Photos added on your PC** (restaurant images in `public/img`, album photos in `data/<slug>/photos`) are not on GitHub
+and Vercel doesn't ship them, so push them to Blob once after adding new ones (already-uploaded files are skipped):
+```powershell
+npx vercel@latest env pull .env.local
+```
+```powershell
+uv run --env-file .env.local python -m foodhunt.store push-media
 ```
 
 **Blob store:** `food-hunting-media` (public, Singapore), already connected to the project. To make one again:

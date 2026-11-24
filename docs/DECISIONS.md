@@ -184,3 +184,8 @@ Format: **Step / Decision** → Why → How → Result. Newest at the bottom. Do
 - **Why:** After the Blob redeploy, all 17 restaurant images (`public/img`, kept off GitHub) returned 404 on the live site. You noticed it on Jok Songkhla.
 - **How:** New `GET /img/{name}` in `web.py`. When Vercel's page CDN doesn't have the file, the request reaches the app, which sends it from the deploy bundle (filename only, image types only, cached for a year).
 - **Result:** All 17 return 200 live; Jok Songkhla's photo shows on Day 2. 31 tests pass (including a path-trick check).
+
+### D32. All photos live in Vercel Blob (correction to D31)
+- **Why:** D31 wasn't a real fix. Its 200s were stale CDN copies; with cache-busting, every restaurant image and album photo returned 404. Vercel doesn't bundle `public/` into the Python function, and recent deploys didn't carry the off-GitHub photo folders either. You saw it on Chen Long.
+- **How:** `python -m foodhunt.store push-media` uploads `public/img/*.jpg` → Blob `img/…` and `data/<slug>/photos/*.jpg` → Blob `<slug>/photos/…` (it skips files already there). `/img/{name}` serves the local file if present, else redirects to Blob. Album photos already went through `store.locate`.
+- **Result:** 34 photos pushed. Live with cache-busting: 17/17 restaurant images and 17/17 album photos return 200, and the route page shows 24/24 images with none broken. Photos are now independent of what a deploy includes.

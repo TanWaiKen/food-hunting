@@ -186,12 +186,19 @@ async def upload_photos(slug: str, files: list[UploadFile] = File(...), stop_key
 
 @app.get("/img/{name}", include_in_schema=False)
 def place_image(name: str):
-    """Restaurant images (public/img, kept off GitHub). Vercel's page CDN doesn't always carry this
-    folder, so when it misses, the request lands here and is served from the function bundle."""
-    f = PUBLIC_DIR / "img" / os.path.basename(name)
-    if f.suffix.lower() not in {".jpg", ".jpeg", ".png", ".webp"} or not f.is_file():
+    """Restaurant images. They're kept off GitHub and Vercel doesn't bundle public/ into this
+    function, so on Vercel they live in Blob under "img/<name>" (pushed with
+    `python -m foodhunt.store push-media`). Locally the file in public/img is used."""
+    name = os.path.basename(name)
+    if os.path.splitext(name)[1].lower() not in {".jpg", ".jpeg", ".png", ".webp"}:
         raise HTTPException(404)
-    return FileResponse(f, headers={"Cache-Control": "public, max-age=31536000, s-maxage=31536000, immutable"})
+    f = PUBLIC_DIR / "img" / name
+    if f.is_file():
+        return FileResponse(f, headers={"Cache-Control": "public, max-age=31536000, s-maxage=31536000, immutable"})
+    where = store.locate(f"img/{name}")
+    if where and where[0] == "url":
+        return RedirectResponse(where[1], status_code=307, headers={"Cache-Control": "public, max-age=86400, s-maxage=86400"})
+    raise HTTPException(404)
 
 
 @app.get("/api/trips/{slug}/photos/{pid}.jpg")
